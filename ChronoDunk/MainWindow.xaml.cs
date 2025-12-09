@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using ChronoDunk;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,7 +19,16 @@ namespace Projet_sae
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
+
+            this.Content = new UCMenuPrincipal();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            UCMenuPrincipal menuPrincipal = new UCMenuPrincipal();
+
+            this.Content = menuPrincipal;
         }
     }
 }

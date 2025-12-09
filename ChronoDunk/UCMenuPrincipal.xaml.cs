@@ -24,5 +24,31 @@ namespace ChronoDunk
         {
             InitializeComponent();
         }
+
+        private void buttonJeu_Click(object sender, RoutedEventArgs e)
+        {
+            UCJeu interfaceJeu = new UCJeu();
+
+            this.Content = interfaceJeu;
+        }
+
+        private void buttonQuitter_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void buttonEntrainement_Click(object sender, RoutedEventArgs e)
+        {
+            UCModeEntrainement modeEntrainement = new UCModeEntrainement();
+
+            this.Content = modeEntrainement;
+        }
+
+        private void buttonRegles_Click(object sender, RoutedEventArgs e)
+        {
+            UCReglesJeu interfaceRegles = new UCReglesJeu();
+
+            this.Content = interfaceRegles;
+        }
     }
 }
