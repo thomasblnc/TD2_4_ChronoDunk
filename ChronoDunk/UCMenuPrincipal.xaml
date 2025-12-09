@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="ChronoDunk.UCMenuPrincipal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChronoDunk"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" Width="711">
+    <Canvas x:Name="canvasMenuPrincipal">
+        <Image x:Name="ImgFondMenuPrincipal" Height="440" Source="/images/decor_menu_principal.jpg" Stretch="Fill" Width="710"/>
+        <Label x:Name="labNomJeu" Content="CHRONO DUNK" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="129" Canvas.Top="49" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="66" Background="#00000000"/>
+        <Rectangle x:Name="recFondRegles" Height="39" Canvas.Left="571" Canvas.Top="373" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#FFFF6F00" RadiusX="20" RadiusY="20" Stroke="White"/>
+        <Label x:Name="labReglesMenuPrincipal" Content="RÈGLES" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="24" Width="100" Canvas.Left="586" Canvas.Top="373" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Rectangle x:Name="recFondQuitter" Height="39" Canvas.Left="10" Canvas.Top="373" Width="130" Fill="#FFFF6F00" RadiusX="20" RadiusY="20" Stroke="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="labQuitterMenuPrincipal" Content="QUITTER" Canvas.Left="23" Canvas.Top="373" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Rectangle x:Name="recFondQuitter_Copy" Height="78" Canvas.Left="248" Canvas.Top="205" Width="214" Fill="#FFFF6F00" RadiusX="20" RadiusY="20" Stroke="White" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"/>
+        <Label x:Name="labJouerMenuPrincipal" Content="JOUER" Canvas.Left="270" Canvas.Top="209" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="52" HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" Width="170" RenderTransformOrigin="0.639,0.665"/>
+        <Rectangle x:Name="recFondQuitter_Copy1" Height="45" Canvas.Left="205" Canvas.Top="298" Width="300" Fill="#FFFF6F00" RadiusX="20" RadiusY="20" Stroke="White" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="labEntrainementMenuPrincipal" Content="ENTRAINEMENT" Canvas.Left="236" Canvas.Top="296" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Meilleur score : 28" FontFamily="./fonts/#Irish Grover" Canvas.Left="4" Canvas.Top="26" Foreground="#FFEDDC1F" RenderTransformOrigin="0.5,0.5" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-11.041"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Image Height="130" Canvas.Left="520" Source="/images/logo_chronodunk.png" Stretch="Fill" Canvas.Top="177" Width="238" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="14.63"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+    </Canvas>
+</UserControl>

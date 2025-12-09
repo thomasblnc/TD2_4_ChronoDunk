@@ -8,4 +8,25 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="decor_menu_principal.jpg" />
+    <None Remove="fonts\IrishGrover-Regular.ttf" />
+    <None Remove="images\logo_chronodunk.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\logo_chronodunk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="fonts\IrishGrover-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\decor_menu_principal.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>
