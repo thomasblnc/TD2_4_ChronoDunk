@@ -6,9 +6,16 @@
              xmlns:local="clr-namespace:ChronoDunk"
              mc:Ignorable="d" 
              d:DesignHeight="470" d:DesignWidth="800">
+
     <Grid>
-        <Image Margin="-45,-10,-45,0" Source="/images/background_court_2.jpg" Stretch="Fill"/>
-        <Image Margin="322,15,116,78" Source="/images/personnage_chronodunk.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+        <Image Source="/images/background_court_2.jpg" 
+               Margin="-45,-10,-45,0" 
+               Stretch="Fill"/>
+
+        <Image Source="/images/personnage_chronodunk.png" 
+               Margin="322,15,116,78" 
+               Stretch="Fill" 
+               RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -18,5 +25,87 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+
+        <Grid>
+            <Canvas x:Name="canvasMenuPause" 
+                    Visibility="Collapsed"
+                    Background="#CC000000" 
+                    Margin="128,76,128,76">
+
+                <TextBlock x:Name="textMenu" 
+                           Text="Menu Pause" 
+                           Canvas.Left="158" Canvas.Top="10" 
+                           FontFamily="./fonts/#Irish Grover" FontSize="42" 
+                           Foreground="Yellow" 
+                           HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBlock x:Name="textScore" 
+                           Text="Score ; 28"
+                           Canvas.Left="215" Canvas.Top="66" 
+                           FontFamily="./fonts/#Irish Grover" FontSize="24" 
+                           Foreground="#FFFF5200" 
+                           HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                <Image Source="/images/logo_chronodunk.png" 
+                       Canvas.Left="341" Canvas.Top="170" 
+                       Width="245" Height="134" 
+                       Stretch="Fill" 
+                       RenderTransformOrigin="0.5,0.5" 
+                       HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="15.594"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+
+                <Image Source="/images/personnage_chronodunk.png" 
+                       Canvas.Left="-42" Canvas.Top="53" 
+                       Width="251" Height="271" 
+                       Stretch="Fill" 
+                       RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="7.844"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+
+                <Button x:Name="buttonQuitter" 
+                        Click="buttonQuitter_Click"
+                        Content="QUITTER" 
+                        Canvas.Left="185" Canvas.Top="210" 
+                        Width="173" Height="40" 
+                        Padding="10,8,10,10" Margin="10,0,0,0"
+                        FontSize="20" FontFamily="./fonts/#Irish Grover" 
+                        Foreground="White" Background="#FFFF6F00" BorderBrush="White"
+                        HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Button x:Name="buttonReprendre" 
+                        Click="buttonReprendre_Click"
+                        Content="REPRENDRE" 
+                        Canvas.Left="195" Canvas.Top="138" 
+                        Width="173" Height="40" 
+                        Padding="15,8,10,10"
+                        FontSize="20" FontFamily="./fonts/#Irish Grover" 
+                        Foreground="White" Background="#FFFF6F00" BorderBrush="White"
+                        HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </Canvas>
+
+            <Button Click="PauseButton_Click"
+                    Background="#FFFF6F00" 
+                    HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Margin="26,27,0,0" 
+                    Width="40" Height="40">
+                <Image x:Name="imgPause" Source="/images/buttonPause.png" 
+                       Stretch="Uniform"/>
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>

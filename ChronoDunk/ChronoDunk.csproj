@@ -16,6 +16,7 @@
     <None Remove="images\background_court_2.jpg" />
     <None Remove="images\background_court_3.jpg" />
     <None Remove="images\background_court_4.jpg" />
+    <None Remove="images\buttonPause.png" />
     <None Remove="images\court_rules.jpg" />
     <None Remove="images\logo_chronodunk.png" />
     <None Remove="images\personnage_chronodunk.png" />
@@ -36,6 +37,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="images\background_court_4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\buttonPause.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="images\court_rules.jpg">

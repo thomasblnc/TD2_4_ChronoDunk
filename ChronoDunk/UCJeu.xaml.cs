@@ -15,14 +15,25 @@ using System.Windows.Shapes;
 
 namespace ChronoDunk
 {
-    /// <summary>
-    /// Logique d'interaction pour UCJeu.xaml
-    /// </summary>
     public partial class UCJeu : UserControl
     {
         public UCJeu()
         {
             InitializeComponent();
+        }
+        private void buttonQuitter_Click(object sender, RoutedEventArgs e)
+        {
+        this.Content = new UCMenuPrincipal();
+        }
+
+        private void buttonReprendre_Click(object sender, RoutedEventArgs e)
+        {
+            canvasMenuPause.Visibility = Visibility.Collapsed;
+        }
+
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            canvasMenuPause.Visibility = Visibility.Visible;  
         }
     }
 }
