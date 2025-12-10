@@ -24,5 +24,21 @@ namespace ChronoDunk
         {
             InitializeComponent();
         }
+
+        private void buttonQuitter_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new UCMenuPrincipal();
+        }
+
+        private void buttonReprendre_Click(object sender, RoutedEventArgs e)
+        {
+            canvasMenuPause.Visibility = Visibility.Collapsed;
+        }
+
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            canvasMenuPause.Visibility = Visibility.Visible;
+        }
     }
 }
+    

@@ -24,5 +24,11 @@ namespace ChronoDunk
         {
             InitializeComponent();
         }
+
+        private void ButtonRetour_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new UCMenuPrincipal();
+        }
+
     }
 }

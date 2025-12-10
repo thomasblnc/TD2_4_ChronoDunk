@@ -5,9 +5,78 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChronoDunk"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Image Margin="146,36,146,36" Source="/images/court_rules.jpg" Stretch="Fill"/>
+             d:DesignHeight="470" d:DesignWidth="711" Background="Black">
 
+    <Grid Background="Black">
+        <Image x:Name="ImgFondMenuRegles" Source="/images/decor_menu_principal.jpg" Stretch="UniformToFill" Margin="-39,1,-39,-14" Grid.RowSpan="3" OpacityMask="Black"/>
+        <Rectangle Margin="-39,0,-39,-15" Stroke="Black" Fill="#B2000000" RenderTransformOrigin="0.175,0.529"/>
+        <Border Margin="50" CornerRadius="20" BorderBrush="#FFFF6F00" BorderThickness="3" Background="#AA000000">
+
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" 
+                      HorizontalScrollBarVisibility="Disabled">
+
+                <StackPanel VerticalAlignment="Top" Margin="20">
+                    <TextBlock Text="RÈGLES DU JEU"
+                           FontFamily="./fonts/#Irish Grover"
+                           FontSize="45"
+                           Foreground="#FFFF6F00"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,30">
+                    </TextBlock>
+
+
+                    <TextBlock x:Name="textObjectif" Text="1. L'OBJECTIF" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
+                    <TextBlock x:Name="descriptionObjectif" Text="Marquez un maximum de paniers avant la fin du temps imparti ! Enchaînez les tirs pour exploser le meilleur score." 
+                           Foreground="White" FontSize="18" TextWrapping="Wrap" Margin="0,0,0,20"/>
+
+                    <TextBlock Text="2. LE SCORE" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
+                    <TextBlock Text="2 Points : Zone intérieure" Foreground="White" FontSize="18" Margin="0,0,0,5"/>
+                    <TextBlock Text="3 Points : Derrière la ligne" Foreground="White" FontSize="18" Margin="0,0,0,20"/>
+
+                    <TextBlock Text="3. LES COMMANDES" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Padding="10,5" Margin="0,0,10,0">
+                            <TextBlock Text="ESPACE" Foreground="White" FontWeight="Bold"/>
+                        </Border>
+                        <TextBlock Text=": Maintenir pour doser la puissance" Foreground="White" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" VerticalAlignment="Center">
+                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,15,0">
+                            <TextBlock Text="↑" Foreground="White" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text=": Sauter " Foreground="White" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,20,10">
+
+                        <Grid Width="34" Height="50" >
+                            <Border BorderBrush="White" BorderThickness="2" CornerRadius="12" Background="Transparent"/>
+                            <Path Data="M 2,18 L 2,12 C 2,5 5,2 17,2 L 17,18 Z" Fill="#FFFF6F00" Margin="1,1,0,0" />
+                            <Line X1="17" Y1="2" X2="17" Y2="18" Stroke="White" StrokeThickness="2"/>
+                            <Line X1="2" Y1="18" X2="32" Y2="18" Stroke="White" StrokeThickness="2"/>
+                        </Grid>
+
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="  • GLISSER : Choisir la trajectoire" Foreground="White" FontSize="18" Margin="0,0,0,5"/>
+
+                            <TextBlock Text="  • MAINTENIR CLIC : Doser la puissance"  Foreground="White" FontSize="18"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Button x:Name="buttonRetour" 
+            Click="ButtonRetour_Click"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            Margin="5,20,0,0"
+            Height="48" Width="37"
+            Background="Transparent" 
+            BorderBrush="{x:Null}">
+            <Image Source="/images/left-arrow.png" Stretch="Uniform"/>
+        </Button>
+        
     </Grid>
 </UserControl>
