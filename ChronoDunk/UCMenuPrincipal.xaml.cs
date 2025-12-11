@@ -52,5 +52,12 @@ namespace ChronoDunk
 
             this.Content = interfaceRegles;
         }
+
+        private void buttonCopyright_Click(object sender, RoutedEventArgs e)
+        {
+            UCCredits interfaceCredits = new UCCredits();
+
+            this.Content = interfaceCredits;
+        }
     }
 }

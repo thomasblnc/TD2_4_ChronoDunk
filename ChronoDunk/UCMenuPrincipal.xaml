@@ -97,5 +97,13 @@
                 Canvas.Left="10" Canvas.Top="384" 
                 Height="40" Width="130"/>
 
+
+        <Button x:Name="buttonCopyright" Click="buttonCopyright_Click"
+                Style="{StaticResource MenuButtonStyle}"
+                Height="39" Width="46" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="691" Canvas.Top="15">
+            <Image x:Name="logoCopyright" Height="32" Source="/images/logo_copyright.png" Stretch="Fill" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </Button>
+
+
     </Canvas>
 </UserControl>

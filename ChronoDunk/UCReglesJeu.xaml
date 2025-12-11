@@ -26,20 +26,26 @@
 
 
                     <TextBlock x:Name="textObjectif" Text="1. L'OBJECTIF" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
-                    <TextBlock x:Name="descriptionObjectif" Text="Marquez un maximum de paniers avant la fin du temps imparti ! Enchaînez les tirs pour exploser le meilleur score." 
-                           Foreground="White" FontSize="18" TextWrapping="Wrap" Margin="0,0,0,20"/>
+                    <TextBlock x:Name="descriptionObjectif" Text="Marquez un maximum de paniers avant la fin du temps imparti ! Enchaînez les tirs pour exploser le meilleur score." Foreground="White" FontSize="18" TextWrapping="Wrap" Margin="0,0,0,20"/>
 
-                    <TextBlock Text="2. LE SCORE" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
-                    <TextBlock Text="2 Points : Zone intérieure" Foreground="White" FontSize="18" Margin="0,0,0,5"/>
-                    <TextBlock Text="3 Points : Derrière la ligne" Foreground="White" FontSize="18" Margin="0,0,0,20"/>
+                    <TextBlock x:Name="textScore" Text="2. LE SCORE" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
+                    <TextBlock x:Name="text2pts" Text="2 Points : Zone intérieure" Foreground="White" FontSize="18" Margin="0,0,0,5"/>
+                    <TextBlock x:Name="text3pts" Text="3 Points : Derrière la ligne" Foreground="White" FontSize="18" Margin="0,0,0,20"/>
 
-                    <TextBlock Text="3. LES COMMANDES" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
+                    <TextBlock x:Name="textCommandes" Text="3. LES COMMANDES" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
+
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Padding="10,5" Margin="0,0,10,0">
-                            <TextBlock Text="ESPACE" Foreground="White" FontWeight="Bold"/>
+                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,10,0">
+                            <TextBlock Text="←" Foreground="White" Margin="0,0,0,5" FontWeight="Bold" FontSize="24"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
-                        <TextBlock Text=": Maintenir pour doser la puissance" Foreground="White" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,10,0">
+                            <TextBlock Text="→" Foreground="White" Margin="0,0,0,5" FontWeight="Bold" FontSize="24"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <TextBlock Text=": Déplacer le joueur d'un côté ou l'autre" Foreground="White" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
                     </StackPanel>
+
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10" VerticalAlignment="Center">
                         <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,15,0">
                             <TextBlock Text="↑" Foreground="White" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -71,12 +77,10 @@
             Click="ButtonRetour_Click"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top"
-            Margin="5,20,0,0"
-            Height="48" Width="37"
-            Background="Transparent" 
-            BorderBrush="{x:Null}">
+            Margin="-12,10,0,0"
+            Height="48" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
             <Image Source="/images/left-arrow.png" Stretch="Uniform"/>
         </Button>
-        
+
     </Grid>
 </UserControl>
