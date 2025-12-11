@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projet_sae"
         mc:Ignorable="d"
-        Title="Chrono Dunk" Height="500" Width="800">
+        Title="Chrono Dunk" Height="720" Width="1280">
     <Grid>
         <Button Content="Button" HorizontalAlignment="Left" Margin="257,102,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Image x:Name="imgPlayer" Margin="234,170,335,64" Source="/images/personnage_chronodunk.png" Stretch="Fill"/>

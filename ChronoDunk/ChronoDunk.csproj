@@ -12,14 +12,18 @@
   <ItemGroup>
     <None Remove="decor_menu_principal.jpg" />
     <None Remove="fonts\IrishGrover-Regular.ttf" />
+    <None Remove="images\background.jpg" />
     <None Remove="images\background_court_1.jpg" />
     <None Remove="images\background_court_2.jpg" />
     <None Remove="images\background_court_3.jpg" />
     <None Remove="images\background_court_4.jpg" />
+    <None Remove="images\ballon.png" />
     <None Remove="images\buttonPause.png" />
     <None Remove="images\left-arrow.png" />
     <None Remove="images\logo_chronodunk.png" />
     <None Remove="images\personnage_chronodunk.png" />
+    <None Remove="images\player.png" />
+    <None Remove="images\player2.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\background.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="images\background_court_1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -37,6 +44,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="images\background_court_4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\ballon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="images\buttonPause.png">
@@ -58,6 +68,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="images\personnage_chronodunk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\player.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\player2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -27,9 +27,11 @@ namespace ChronoDunk
 
         private void buttonJeu_Click(object sender, RoutedEventArgs e)
         {
-            UCJeu interfaceJeu = new UCJeu();
+            // 1. On passe '1' (ou un autre chiffre) pour définir le mode de jeu.
+            // 2. On change le type de la variable de 'UCJeu' à 'UCChoixAdversaire' (ou var).
+            UCChoixAdversaire interfaceChoix = new UCChoixAdversaire(1);
 
-            this.Content = interfaceJeu;
+            this.Content = interfaceChoix;
         }
 
         private void buttonQuitter_Click(object sender, RoutedEventArgs e)
