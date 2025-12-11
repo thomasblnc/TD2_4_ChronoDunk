@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="ChronoDunk.UCCredits"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChronoDunk"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FFFF6F00"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="./fonts/#Irish Grover"/>
+
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="421*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="ImgFondMenuRegles" Source="/images/decor_menu_principal.jpg" Stretch="UniformToFill" Margin="-39,1,-39,-14" Grid.RowSpan="2" OpacityMask="Black"/>
+        <Rectangle Margin="-39,0,-39,-15" Stroke="Black" Fill="#B2000000" RenderTransformOrigin="0.175,0.529" Grid.RowSpan="2"/>
+
+        <Button x:Name="buttonRetour" 
+                   Click="ButtonRetour_Click"
+                    HorizontalAlignment="Left" 
+                     VerticalAlignment="Top"
+                 Margin="-39,14,0,0"
+                Height="54" Width="166" Background="{x:Null}" BorderBrush="{x:Null}" Grid.RowSpan="2"  Style="{StaticResource MenuButtonStyle}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/images/left-arrow.png" Stretch="Uniform" Height="26" Width="40"/>
+                <Label Content="RETOUR" Foreground="#FFFF6F00" FontFamily="./fonts/#Irish Grover" FontSize="22" Width="108" VerticalAlignment="Center"/>
+
+            </StackPanel>
+        </Button>
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,-6,0,-6" Grid.RowSpan="2" Width="582">
+            <Label x:Name="labNomJeuCredits" Content="CHRONO DUNK" Margin="0,20,0,20" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="44" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
+            <Label x:Name="labAnnecy" Margin="0,10,0,10" Content="ANNECY" FontFamily="Times New Roman" Foreground="White" FontSize="24" HorizontalAlignment="Center" Height="38" />
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,30">
+                <Label x:Name="labCreativeDirector" Margin="0,0,10,0" Content="Creative Director" FontFamily="Times New Roman" Foreground="White" FontSize="24" HorizontalAlignment="Center" Height="38" />
+                <Label x:Name="labNomCreativ" Content="    Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="22" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
+                <Label x:Name="labProductionDirector" Margin="0,0,10,0" Content="Production Director" FontFamily="Times New Roman" Foreground="White" FontSize="24" HorizontalAlignment="Center" Height="38" />
+                <Label x:Name="labNomProd" Content="Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="22" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
+                <Label x:Name="labArtDirector" Margin="0,0,82,0" Content="Art Director" FontFamily="Times New Roman" Foreground="White" FontSize="24" HorizontalAlignment="Center" Height="38" />
+                <Label x:Name="labNomArt" Content="Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="22" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>
+
