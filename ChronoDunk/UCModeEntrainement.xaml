@@ -54,7 +54,7 @@
         </Image>
 
         <Canvas x:Name="canvasMenuPause" 
-                Visibility="Collapsed"
+                
                 Background="#CC000000" 
                 Margin="128,76,128,76">
 

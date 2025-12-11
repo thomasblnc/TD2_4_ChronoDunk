@@ -584,6 +584,32 @@ namespace ChronoDunk
             ((MainWindow)Application.Current.MainWindow).Content = menu;
         } 
         private void GameCanvas_Click(object sender, MouseButtonEventArgs e) { this.Focus(); }
+
+        private void buttonQuitter_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new UCMenuPrincipal();
+        }
+
+        private void buttonReprendre_Click(object sender, RoutedEventArgs e)
+        {
+            gameTimer.Start();
+
+            matchClock.Start();
+
+            canvasMenuPause.Visibility = Visibility.Collapsed;
+
+            this.Focus();
+        }
+
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            gameTimer.Stop();
+
+            matchClock.Stop();
+
+            canvasMenuPause.Visibility = Visibility.Visible;
+        }
+
         private void SetFacing(Image t, bool r) { ((ScaleTransform)t.RenderTransform).ScaleX = r ? 1 : -1; }
         private void OnKeyDown(object sender, KeyEventArgs e) { if (e.Key == Key.Escape) TogglePause(); if (isPaused) return; if (e.Key == Key.Up && !playerJumping) { playerVelY = jumpForce; playerJumping = true; } }
         private void OnKeyUp(object sender, KeyEventArgs e) { }

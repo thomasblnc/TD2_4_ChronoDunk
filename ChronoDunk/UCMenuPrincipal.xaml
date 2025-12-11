@@ -50,19 +50,22 @@
 
     <Canvas x:Name="canvasMenuPrincipal">
 
-        <Image x:Name="ImgFondMenuPrincipal" Height="468" Source="/images/decor_menu_principal.jpg" Stretch="Fill" Width="800" HorizontalAlignment="Center" Canvas.Left="-44" VerticalAlignment="Center"/>
+        <Image x:Name="ImgFondMenuPrincipal" Height="798" Source="/images/decor_menu_principal.jpg" Stretch="Fill" Width="1364" HorizontalAlignment="Left" Canvas.Left="-44" VerticalAlignment="Top"/>
 
-        <Label x:Name="labNomJeu" Content="CHRONO DUNK" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="129" Canvas.Top="49" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="66" Background="#00000000"/>
+        <Label x:Name="labNomJeu" Content="CHRONO DUNK" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="331" Canvas.Top="70" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="90" Background="#00000000" Height="96" Width="618"/>
 
-        <Label Content="Meilleur score : 28" FontFamily="./fonts/#Irish Grover" Canvas.Left="-23" Canvas.Top="26" Foreground="#FFEDDC1F" RenderTransformOrigin="0.5,0.5" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <Label Content="Meilleur score : 28" FontFamily="./fonts/#Irish Grover" Canvas.Left="13" Canvas.Top="36" Foreground="#FFEDDC1F" RenderTransformOrigin="0.878,1.213" FontSize="32" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="334">
             <Label.RenderTransform>
                 <TransformGroup>
-                    <RotateTransform Angle="-11.041"/>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-11.041000000000002"/>
+                    <TranslateTransform X="3.412" Y="-13.439"/>
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
 
-        <Image Height="130" Canvas.Left="552" Source="/images/logo_chronodunk.png" Stretch="Fill" Canvas.Top="172" Width="238" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Image Height="202" Canvas.Left="957" Source="/images/logo_chronodunk.png" Stretch="Fill" Canvas.Top="293" Width="371" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -75,33 +78,32 @@
 
         <Button x:Name="buttonJeu" Click="buttonJeu_Click"
                 Style="{StaticResource MenuButtonStyle}" 
-                Content="JOUER" FontSize="52" 
-                Canvas.Left="248" Canvas.Top="186" 
-                Height="78" Width="214"/>
+                Content="JOUER" FontSize="60" 
+                Canvas.Left="438" Canvas.Top="300" 
+                Height="120" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         <Button x:Name="buttonEntrainement" Click="buttonEntrainement_Click"
                 Style="{StaticResource MenuButtonStyle}"
-                Content="ENTRAINEMENT" FontSize="32"
-                Canvas.Left="205" Canvas.Top="297" 
-                Height="45" Width="300"/>
+                Content="ENTRAINEMENT" FontSize="36" Canvas.Top="480" 
+                Height="80" Width="450" Canvas.Left="415"/>
 
         <Button x:Name="buttonRegles" Click="buttonRegles_Click"
                 Style="{StaticResource MenuButtonStyle}"
                 Content="RÈGLES" FontSize="24"
-                Canvas.Left="571" Canvas.Top="385" 
-                Height="39" Width="130"/>
+                Canvas.Left="1033" Canvas.Top="590" 
+                Height="50" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         <Button x:Name="buttonQuitter" Click="buttonQuitter_Click"
                 Style="{StaticResource MenuButtonStyle}"
                 Content="QUITTER" FontSize="24"
-                Canvas.Left="10" Canvas.Top="384" 
-                Height="40" Width="130"/>
+                Canvas.Left="76" Canvas.Top="590" 
+                Height="50" Width="200"/>
 
 
         <Button x:Name="buttonCopyright" Click="buttonCopyright_Click"
                 Style="{StaticResource MenuButtonStyle}"
-                Height="39" Width="46" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="691" Canvas.Top="15">
-            <Image x:Name="logoCopyright" Height="32" Source="/images/logo_copyright.png" Stretch="Fill" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                Height="63" Width="74" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="1159" Canvas.Top="37">
+            <Image x:Name="logoCopyright" Source="/images/logo_copyright.png" Stretch="Fill" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Button>
 
 
