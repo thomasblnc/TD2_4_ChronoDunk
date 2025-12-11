@@ -516,25 +516,18 @@ namespace ChronoDunk
             if (playerHasBall || enemyHasBall) return;
             Rect b = new Rect(ballX, ballY, Ball.Width, Ball.Height);
 
-            // DROITE (P1)
+            // COLLISIONS PANIER
             if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxBackboardRight), Canvas.GetTop(HitboxBackboardRight), 10, 100))) ballVelX = -ballVelX * 0.6;
             if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxHoopRight), Canvas.GetTop(HitboxHoopRight), 50, 10)) && ballVelY > 0)
             {
                 playerScore += (isSuperShot ? 3 : 2); superCharge += 30; if (superCharge > 100) superCharge = 100;
-                SpawnConfetti(Canvas.GetLeft(HitboxHoopRight), Canvas.GetTop(HitboxHoopRight));
-                if (isSuperShot) ShakeScreen(20);
-                UpdateScore();
-                ResetPositions(true); // RESET SIMPLE (PAS DE COMPTE A REBOURS)
+                SpawnConfetti(Canvas.GetLeft(HitboxHoopRight), Canvas.GetTop(HitboxHoopRight)); if (isSuperShot) ShakeScreen(20); UpdateScore(); ResetPositions(true);
             }
-
-            // GAUCHE (P2/IA)
             if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxBackboardLeft), Canvas.GetTop(HitboxBackboardLeft), 10, 100))) ballVelX = -ballVelX * 0.6;
             if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxHoopLeft), Canvas.GetTop(HitboxHoopLeft), 50, 10)) && ballVelY > 0)
             {
                 enemyScore += 2; superCharge += 10; if (superCharge > 100) superCharge = 100;
-                SpawnConfetti(Canvas.GetLeft(HitboxHoopLeft), Canvas.GetTop(HitboxHoopLeft));
-                UpdateScore();
-                ResetPositions(true); // RESET SIMPLE (PAS DE COMPTE A REBOURS)
+                SpawnConfetti(Canvas.GetLeft(HitboxHoopLeft), Canvas.GetTop(HitboxHoopLeft)); UpdateScore(); ResetPositions(true);
             }
         }
 
