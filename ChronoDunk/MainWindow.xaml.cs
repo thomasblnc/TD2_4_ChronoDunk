@@ -23,12 +23,5 @@ namespace Projet_sae
 
             this.Content = new UCMenuPrincipal();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            UCMenuPrincipal menuPrincipal = new UCMenuPrincipal();
-
-            this.Content = menuPrincipal;
-        }
     }
 }

@@ -60,7 +60,7 @@
                    Click="ButtonRetour_Click"
                     HorizontalAlignment="Left" 
                      VerticalAlignment="Top"
-                 Margin="-39,14,0,0"
+                 Margin="0,14,0,0"
                 Height="54" Width="166" Background="{x:Null}" BorderBrush="{x:Null}" Grid.RowSpan="2"  Style="{StaticResource MenuButtonStyle}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/images/left-arrow.png" Stretch="Uniform" Height="26" Width="40"/>
@@ -69,23 +69,23 @@
             </StackPanel>
         </Button>
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,-6,0,-6" Grid.RowSpan="2" Width="582">
-            <Label x:Name="labNomJeuCredits" Content="CHRONO DUNK" Margin="0,20,0,20" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="44" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
-            <Label x:Name="labAnnecy" Margin="0,10,0,10" Content="ANNECY" FontFamily="Times New Roman" Foreground="White" FontSize="24" HorizontalAlignment="Center" Height="38" />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,-6,0,-6" Grid.RowSpan="2" Width="800">
+            <Label x:Name="labNomJeuCredits" Content="CHRONO DUNK" Margin="0,20,0,50" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
+            <Label x:Name="labAnnecy" Margin="0,10,0,50" Content="ANNECY" FontFamily="Times New Roman" Foreground="White" FontSize="34" HorizontalAlignment="Center" Height="44" />
 
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,30">
-                <Label x:Name="labCreativeDirector" Margin="0,0,10,0" Content="Creative Director" FontFamily="Times New Roman" Foreground="White" FontSize="24" HorizontalAlignment="Center" Height="38" />
-                <Label x:Name="labNomCreativ" Content="    Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="22" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
-                <Label x:Name="labProductionDirector" Margin="0,0,10,0" Content="Production Director" FontFamily="Times New Roman" Foreground="White" FontSize="24" HorizontalAlignment="Center" Height="38" />
-                <Label x:Name="labNomProd" Content="Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="22" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,30" HorizontalAlignment="Center" Width="650">
+                <Label x:Name="labCreativeDirector" Margin="0,0,20,0" Content="Creative Director" FontFamily="Times New Roman" Foreground="White" FontSize="28" HorizontalAlignment="Center" Height="38" />
+                <Label x:Name="labNomCreativ" Content="Amezian Nassim &amp; Blanc Thomas" Foreground="White" FontSize="28" Height="46"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
-                <Label x:Name="labArtDirector" Margin="0,0,82,0" Content="Art Director" FontFamily="Times New Roman" Foreground="White" FontSize="24" HorizontalAlignment="Center" Height="38" />
-                <Label x:Name="labNomArt" Content="Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="22" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,30" HorizontalAlignment="Center" Width="693">
+                <Label x:Name="labProductionDirector" Margin="0,0,10,0" Content="Production Director" FontFamily="Times New Roman" Foreground="White" FontSize="28" HorizontalAlignment="Center" Height="38" />
+                <Label x:Name="labNomProd" Content="Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="28" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,30" HorizontalAlignment="Center" Width="633">
+                <Label x:Name="labArtDirector" Content="Art Director" Margin="0,0,20,0" FontFamily="Times New Roman" Foreground="White" FontSize="28" HorizontalAlignment="Center" Height="38" />
+                <Label x:Name="labNomArt" Content="Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="28" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
 

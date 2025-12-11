@@ -13,9 +13,5 @@
    
     
     
-    <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="257,102,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Image x:Name="imgPlayer" Margin="234,170,335,64" Source="/images/personnage_chronodunk.png" Stretch="Fill"/>
-
-    </Grid>
+    <Grid/>
 </Window>
