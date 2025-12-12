@@ -5,7 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChronoDunk"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1280"
+             Focusable="True"
+             KeyDown="OnKeyDown" KeyUp="OnKeyUp"
+             MouseDown="OnMouseDown" MouseUp="OnMouseUp" MouseMove="OnMouseMove">
 
     <UserControl.Resources>
         <Style x:Key="StyleBoutonPauseAnime" TargetType="Button">
@@ -18,10 +21,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="20">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="20">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -40,98 +40,64 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
-        <Image Margin="-45,-10,-45,-20" Source="/images/background_court_2.jpg" Stretch="Fill"/>
-        <Image Margin="200,127,238,-54" Source="/images/personnage_chronodunk.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.193"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
+    <Grid Background="Black">
 
-        <Canvas x:Name="canvasMenuPause" 
-                
-                Background="#CC000000" 
-                Margin="128,76,128,76">
+        <Canvas x:Name="GameCanvas" Background="Transparent" MouseLeftButtonDown="GameCanvas_Click">
 
-            <TextBlock x:Name="textMenu" Text="Menu Pause" Canvas.Left="158" Canvas.Top="10" FontFamily="./fonts/#Irish Grover" FontSize="42" Foreground="Yellow" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock x:Name="textScore" Text="Score ; 28" Canvas.Left="215" Canvas.Top="66" FontFamily="./fonts/#Irish Grover" FontSize="24" Foreground="#FFFF5200" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Image Source="/images/background.jpg" Stretch="Fill" Width="1280" Height="720" IsHitTestVisible="False"/>
 
-            <Image x:Name="imgLogoMenuPause" Source="/images/logo_chronodunk.png" Canvas.Left="341" Canvas.Top="170" Width="245" Height="134" Stretch="Fill" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <ProgressBar x:Name="SuperBar" Width="200" Height="20" Canvas.Left="10" Canvas.Bottom="10" Background="Gray" Foreground="OrangeRed" Value="0" Maximum="100"/>
+            <TextBlock Text="PUISSANCE" Canvas.Left="15" Canvas.Bottom="12" Foreground="White" FontWeight="Bold" FontSize="10" IsHitTestVisible="False"/>
+
+            <Polyline x:Name="TrajectoryLine" Stroke="Yellow" StrokeThickness="5" StrokeDashArray="4 2" Opacity="0.8" IsHitTestVisible="False"/>
+
+            <Rectangle x:Name="HitboxBackboardRight" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="175" Canvas.Left="1075"/>
+            <Rectangle x:Name="HitboxHoopRight" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="273" Canvas.Left="1005"/>
+
+            <Image x:Name="Player" Source="/images/player.png" Height="300" Width="200" Canvas.Top="364" Canvas.Left="200" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="15.594"/>
-                    </TransformGroup>
+                    <ScaleTransform ScaleX="1"/>
                 </Image.RenderTransform>
             </Image>
 
-            <Image x:Name="imgPersoMenuPause" Source="/images/personnage_chronodunk.png" Canvas.Left="-42" Canvas.Top="53" Width="251" Height="271" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Ball" Source="/images/ballon.png" Height="80" Width="80" Canvas.Top="186" Canvas.Left="600" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Image.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="7.844"/>
-                    </TransformGroup>
+                    <RotateTransform Angle="0"/>
                 </Image.RenderTransform>
             </Image>
 
-            <Button x:Name="buttonQuitter" 
+            <Button x:Name="buttonPause" Click="PauseButton_Click" Style="{StaticResource StyleBoutonPauseAnime}"
+                    Background="#FFFF6F00" BorderBrush="White" BorderThickness="1"
+                    Canvas.Left="26" Canvas.Top="27" Width="40" Height="40">
+                <Image Source="/images/buttonPause.png" Stretch="Uniform"/>
+            </Button>
 
-            Click="buttonQuitter_Click"
+            <Grid x:Name="PauseMenu" Width="1280" Height="720" Background="#CC000000" Visibility="Collapsed">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="PAUSE" Foreground="White" FontSize="70" FontWeight="Bold" HorizontalAlignment="Center" FontFamily="./fonts/#Irish Grover" Margin="0,0,0,40"/>
 
-            Content="QUITTER" 
+                    <Button Content="REPRENDRE" Click="Resume_Click" Width="300" Height="60" Background="#00AA00" Foreground="White" FontSize="25" FontFamily="./fonts/#Irish Grover" Margin="10">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="White" BorderThickness="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
 
-            Canvas.Left="185" Canvas.Top="210" 
-
-            Width="173" Height="40" 
-
-            Padding="10,8,10,10" Margin="10,0,0,0"
-
-            FontSize="20" FontFamily="./fonts/#Irish Grover" 
-
-            Foreground="White" Background="#FFFF6F00" BorderBrush="White"
-
-            HorizontalAlignment="Center" VerticalAlignment="Top"/>
-
-
-
-            <Button x:Name="buttonReprendre" 
-
-            Click="buttonReprendre_Click"
-
-            Content="REPRENDRE" 
-
-            Canvas.Left="195" Canvas.Top="138" 
-
-            Width="173" Height="40" 
-
-            Padding="15,8,10,10"
-
-            FontSize="20" FontFamily="./fonts/#Irish Grover" 
-
-            Foreground="White" Background="#FFFF6F00" BorderBrush="White"
-
-            HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Button Content="QUITTER" Click="QuitToMenu_Click" Width="300" Height="60" Background="#AA0000" Foreground="White" FontSize="25" FontFamily="./fonts/#Irish Grover" Margin="10">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="White" BorderThickness="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Grid>
 
         </Canvas>
-
-        <Button x:Name="buttonPause" 
-                Click="PauseButton_Click"
-                Style="{StaticResource StyleBoutonPauseAnime}"
-                Background="#FFFF6F00"
-                BorderBrush="White"
-                BorderThickness="1"
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Margin="26,27,0,0" 
-                Width="40" Height="40">
-            <Image x:Name="imgPause" Source="/images/buttonPause.png" Stretch="Uniform"/>
-        </Button>
-
     </Grid>
 </UserControl>
