@@ -406,11 +406,7 @@ namespace ChronoDunk
         private void OnKeyUp(object sender, KeyEventArgs e) { }
 
         // GESTION MENU OPTIONS OVERLAY
-        private void ButtonRetourOptions_Click(object sender, RoutedEventArgs e)
-        {
-            canvasMenuPause.Visibility = Visibility.Visible;
-            MenuOptions.Visibility = Visibility.Collapsed;
-        }
+        private void ButtonRetourOptions_Click(object sender, RoutedEventArgs e) { canvasMenuPause.Visibility = Visibility.Visible; MenuOptions.Visibility = Visibility.Collapsed; }
 
         private void ButtonOptions_Click(Object sender, RoutedEventArgs e)
         {

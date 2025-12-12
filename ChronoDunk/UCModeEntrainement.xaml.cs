@@ -271,17 +271,10 @@ namespace ChronoDunk
         }
 
         // --- BOUTONS ---
-        private void PauseButton_Click(object sender, RoutedEventArgs e) => TogglePause();
-        private void Resume_Click(object sender, RoutedEventArgs e) => TogglePause();
-        private void QuitToMenu_Click(object sender, RoutedEventArgs e)
-        {
-            gameTimer.Stop();
-            Window win = Application.Current.MainWindow;
-            win.Content = new UCMenuPrincipal();
-            win.Width = 820; win.Height = 640;
-            win.Left = (SystemParameters.PrimaryScreenWidth - win.Width) / 2;
-            win.Top = (SystemParameters.PrimaryScreenHeight - win.Height) / 2;
-        }
+        private void buttonQuitter_Click(object sender, RoutedEventArgs e) { this.Content = new UCMenuPrincipal(); }
+        private void buttonReprendre_Click(object sender, RoutedEventArgs e) { gameTimer.Start(); canvasMenuPause.Visibility = Visibility.Collapsed; this.Focus(); }
+        private void PauseButton_Click(object sender, RoutedEventArgs e) { gameTimer.Stop(); canvasMenuPause.Visibility = Visibility.Visible; }
+
         private void GameCanvas_Click(object sender, MouseButtonEventArgs e) => this.Focus();
         private void OnKeyDown(object sender, KeyEventArgs e) { if (e.Key == Key.Escape) TogglePause(); }
         private void OnKeyUp(object sender, KeyEventArgs e) { }

@@ -66,37 +66,85 @@
                 </Image.RenderTransform>
             </Image>
 
-            <Button x:Name="buttonPause" Click="PauseButton_Click" Style="{StaticResource StyleBoutonPauseAnime}"
-                    Background="#FFFF6F00" BorderBrush="White" BorderThickness="1"
-                    Canvas.Left="26" Canvas.Top="27" Width="40" Height="40">
-                <Image Source="/images/buttonPause.png" Stretch="Uniform"/>
-            </Button>
+            <Grid>
 
-            <Grid x:Name="PauseMenu" Width="1280" Height="720" Background="#CC000000" Visibility="Collapsed">
+                <Button x:Name="buttonPause" 
+            Click="PauseButton_Click"
+            Style="{StaticResource StyleBoutonPauseAnime}"
+            Background="#FFFF6F00"
+            BorderBrush="White"
+            BorderThickness="1"
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="26,27,0,0" 
+            Width="40" Height="40">
+                    <Image x:Name="imgPause" Source="/images/buttonPause.png" Stretch="Uniform"/>
+                </Button>
+            </Grid>
+
+            <Grid x:Name="GameOverScreen" Width="800" Height="600" Background="#CC000000" Visibility="Visible" Canvas.Left="240" Canvas.Top="60">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="PAUSE" Foreground="White" FontSize="70" FontWeight="Bold" HorizontalAlignment="Center" FontFamily="./fonts/#Irish Grover" Margin="0,0,0,40"/>
-
-                    <Button Content="REPRENDRE" Click="Resume_Click" Width="300" Height="60" Background="#00AA00" Foreground="White" FontSize="25" FontFamily="./fonts/#Irish Grover" Margin="10">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="White" BorderThickness="2">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-
-                    <Button Content="QUITTER" Click="QuitToMenu_Click" Width="300" Height="60" Background="#AA0000" Foreground="White" FontSize="25" FontFamily="./fonts/#Irish Grover" Margin="10">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="White" BorderThickness="2">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                    <TextBlock Text="FIN DU MATCH" Foreground="White" FontSize="60" FontWeight="Bold" HorizontalAlignment="Center" FontFamily="./fonts/#Irish Grover" Height="115"/>
+                    <TextBlock x:Name="FinalScoreText" Text="00 - 00" Foreground="Yellow" FontSize="50" HorizontalAlignment="Center" Margin="0,20" Height="119" />
+                    <Button x:Name="buttonRejouerGameOverScreen" Content="REJOUER" Width="250" Height="60" FontSize="24" Background="#FFFF5200" Foreground="White" FontFamily="./fonts/#Irish Grover" Click="QuitGame_Click"/>
+                    <Button x:Name="buttonMenuGameOverScreen" Content="MENU" Width="250" Height="60" FontSize="24" FontFamily="./fonts/#Irish Grover" Background="#FFFF5200" Foreground="White" Margin="0,30,0,0" Click="QuitToMenu_Click"/>
                 </StackPanel>
             </Grid>
+
+            <Canvas x:Name="canvasMenuPause" Visibility="Collapsed" Background="#CC000000" Height="492" Canvas.Left="277" Canvas.Top="114" Width="726">
+
+                <TextBlock x:Name="textMenu" Text="Menu Pause" Canvas.Left="189" Canvas.Top="10" FontFamily="./fonts/#Irish Grover" FontSize="64" Foreground="Yellow" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock x:Name="textScore" Text="0 : 0" Canvas.Left="331" Canvas.Top="118" FontFamily="./fonts/#Irish Grover" FontSize="32" Foreground="#FFFF5200" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Image x:Name="imgLogoMenuPause" Source="/images/logo_chronodunk.png" Canvas.Left="475" Canvas.Top="202" Width="319" Height="174" Stretch="Fill" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="15.594"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+
+                <Image x:Name="imgPersoMenuPause" Source="/images/personnage_chronodunk.png" Canvas.Left="-76" Canvas.Top="96" Width="366" Height="396" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="7.844"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+
+                <Button x:Name="buttonQuitter" 
+                Click="buttonQuitter_Click"
+                Content="QUITTER" 
+                Canvas.Left="244" Canvas.Top="396" 
+                Width="238" Height="56" 
+                Padding="10,8,10,10"
+                FontSize="20" FontFamily="./fonts/#Irish Grover" 
+                Foreground="White" Background="#FFFF6F00" BorderBrush="White"
+                HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Button x:Name="buttonReprendre" 
+                Click="buttonReprendre_Click"
+                Content="REPRENDRE" 
+                Canvas.Left="244" Canvas.Top="191" 
+                Width="238" Height="55" 
+                Padding="15,8,10,10"
+                FontSize="20" FontFamily="./fonts/#Irish Grover" 
+                Foreground="White" Background="#FFFF6F00" BorderBrush="White"
+                HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Button x:Name="buttonOptions" 
+                Click="ButtonOptions_Click"
+                Content="OPTIONS" 
+                Canvas.Left="244" Canvas.Top="294" 
+                Width="238" Height="54" 
+                Padding="15,8,10,10"
+                FontSize="20" FontFamily="./fonts/#Irish Grover" 
+                Foreground="White" Background="#FFFF6F00" BorderBrush="White"
+                HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.535,2"/>
+            </Canvas>
 
         </Canvas>
     </Grid>
