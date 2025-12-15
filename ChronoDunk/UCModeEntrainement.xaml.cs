@@ -33,6 +33,8 @@ namespace ChronoDunk
         bool playerJumping = false;
         bool playerHasBall = false;
         int superCharge = 0;
+        int aiScore = 0;
+        int playerScore = 0;
 
         // --- BALLON ---
         double ballX, ballY, ballVelX, ballVelY;
@@ -96,7 +98,7 @@ namespace ChronoDunk
             if (isPaused)
             {
                 isPaused = false;
-                PauseMenu.Visibility = Visibility.Collapsed;
+                canvasMenuPause.Visibility = Visibility.Collapsed;
                 gameTimer.Start();
                 this.Focus();
             }
@@ -107,7 +109,7 @@ namespace ChronoDunk
                 TrajectoryLine.Visibility = Visibility.Collapsed;
 
                 isPaused = true;
-                PauseMenu.Visibility = Visibility.Visible;
+                canvasMenuPause.Visibility = Visibility.Visible;
                 gameTimer.Stop();
             }
         }
@@ -209,15 +211,24 @@ namespace ChronoDunk
 
             // Panier Droite
             if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxBackboardRight), Canvas.GetTop(HitboxBackboardRight), 10, 100))) ballVelX = -ballVelX * 0.6;
-
+            if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxBackboardLeft), Canvas.GetTop(HitboxBackboardLeft), 10, 100))) ballVelX = -ballVelX * 0.6;
             // Si on marque
             if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxHoopRight), Canvas.GetTop(HitboxHoopRight), 50, 10)) && ballVelY > 0)
             {
                 // Juste des effets visuels, pas de score
+                playerScore += 2;
                 SpawnConfetti(Canvas.GetLeft(HitboxHoopRight), Canvas.GetTop(HitboxHoopRight));
-                superCharge = 100; // Récompense : Super tir chargé
-                ResetBall(); // On redonne la balle
+                ResetBall();
+                
             }
+            if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxHoopLeft), Canvas.GetTop(HitboxHoopLeft), 50, 10)) && ballVelY > 0)
+            {
+                aiScore += 2;
+                SpawnConfetti(Canvas.GetLeft(HitboxHoopLeft), Canvas.GetTop(HitboxHoopLeft)); 
+                ResetBall();
+                
+            }
+            UpdateScore();
         }
 
         // --- GESTION SOURIS (TIR) ---
@@ -270,10 +281,19 @@ namespace ChronoDunk
             }
         }
 
+        private void UpdateScore() { PlayerScoreText.Text = playerScore.ToString(); EnemyScoreText.Text = aiScore.ToString(); }
+
+        private void FinDeJeu()
+        {
+            FinalScoreText.Text = $"{playerScore} - {aiScore}";
+        }
+
         // --- BOUTONS ---
+        private void RetourMenu_Click(object sender, RoutedEventArgs e) { this.Content = new UCMenuPrincipal(); }
+        private void PauseButton_Click(object sender, RoutedEventArgs e) { gameTimer.Stop(); canvasMenuPause.Visibility = Visibility.Visible; }
         private void buttonQuitter_Click(object sender, RoutedEventArgs e) { this.Content = new UCMenuPrincipal(); }
         private void buttonReprendre_Click(object sender, RoutedEventArgs e) { gameTimer.Start(); canvasMenuPause.Visibility = Visibility.Collapsed; this.Focus(); }
-        private void PauseButton_Click(object sender, RoutedEventArgs e) { gameTimer.Stop(); canvasMenuPause.Visibility = Visibility.Visible; }
+        private void ButtonOptions_Click(object sender, RoutedEventArgs e) { }
 
         private void GameCanvas_Click(object sender, MouseButtonEventArgs e) => this.Focus();
         private void OnKeyDown(object sender, KeyEventArgs e) { if (e.Key == Key.Escape) TogglePause(); }

@@ -53,6 +53,8 @@
 
             <Rectangle x:Name="HitboxBackboardRight" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="175" Canvas.Left="1075"/>
             <Rectangle x:Name="HitboxHoopRight" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="273" Canvas.Left="1005"/>
+            <Rectangle x:Name="HitboxBackboardLeft" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="180" Canvas.Left="188" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Rectangle x:Name="HitboxHoopLeft" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="278" Canvas.Left="233"/>
 
             <Image x:Name="Player" Source="/images/player.png" Height="300" Width="200" Canvas.Top="364" Canvas.Left="200" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
@@ -81,19 +83,24 @@
                 </Button>
             </Grid>
 
-            <Grid x:Name="GameOverScreen" Width="800" Height="600" Background="#CC000000" Visibility="Visible" Canvas.Left="240" Canvas.Top="60">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="FIN DU MATCH" Foreground="White" FontSize="60" FontWeight="Bold" HorizontalAlignment="Center" FontFamily="./fonts/#Irish Grover" Height="115"/>
-                    <TextBlock x:Name="FinalScoreText" Text="00 - 00" Foreground="Yellow" FontSize="50" HorizontalAlignment="Center" Margin="0,20" Height="119" />
-                    <Button x:Name="buttonRejouerGameOverScreen" Content="REJOUER" Width="250" Height="60" FontSize="24" Background="#FFFF5200" Foreground="White" FontFamily="./fonts/#Irish Grover" Click="QuitGame_Click"/>
-                    <Button x:Name="buttonMenuGameOverScreen" Content="MENU" Width="250" Height="60" FontSize="24" FontFamily="./fonts/#Irish Grover" Background="#FFFF5200" Foreground="White" Margin="0,30,0,0" Click="QuitToMenu_Click"/>
-                </StackPanel>
-            </Grid>
+            <StackPanel Canvas.Left="540" Canvas.Top="88" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Border Background="#E5000000" CornerRadius="5" HorizontalAlignment="Center" Padding="10,5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock x:Name="PlayerScoreText" Text="0" Foreground="Yellow" FontSize="30" FontWeight="Bold" Margin="0,0,40,0"/>
+                        <TextBlock Text="-" Foreground="White" FontSize="30" FontWeight="Bold"/>
+                        <TextBlock x:Name="EnemyScoreText" Text="0" Foreground="Red" FontSize="30" FontWeight="Bold" Margin="40,0,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Grid Margin="0,2,0,0">
+                    <TextBlock Text="TOI" Foreground="Yellow" FontSize="10" HorizontalAlignment="Left" Margin="10,10,0,0" FontWeight="Bold"/>
+                    <TextBlock Text="ADV" Foreground="Red" FontSize="10" HorizontalAlignment="Right" Margin="0,10,10,0" FontWeight="Bold"/>
+                </Grid>
+            </StackPanel>
 
-            <Canvas x:Name="canvasMenuPause" Visibility="Collapsed" Background="#CC000000" Height="492" Canvas.Left="277" Canvas.Top="114" Width="726">
+            <Canvas x:Name="canvasMenuPause" Visibility="Visible" Background="#CC000000" Height="492" Canvas.Left="277" Canvas.Top="114" Width="726">
 
                 <TextBlock x:Name="textMenu" Text="Menu Pause" Canvas.Left="189" Canvas.Top="10" FontFamily="./fonts/#Irish Grover" FontSize="64" Foreground="Yellow" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock x:Name="textScore" Text="0 : 0" Canvas.Left="331" Canvas.Top="118" FontFamily="./fonts/#Irish Grover" FontSize="32" Foreground="#FFFF5200" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <TextBlock x:Name="FinalScoreText" Text="00 - 00" Canvas.Left="309" Canvas.Top="118" FontFamily="./fonts/#Irish Grover" FontSize="32" Foreground="#FFFF5200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                 <Image x:Name="imgLogoMenuPause" Source="/images/logo_chronodunk.png" Canvas.Left="475" Canvas.Top="202" Width="319" Height="174" Stretch="Fill" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image.RenderTransform>
@@ -114,7 +121,6 @@
                         </TransformGroup>
                     </Image.RenderTransform>
                 </Image>
-
                 <Button x:Name="buttonQuitter" 
                 Click="buttonQuitter_Click"
                 Content="QUITTER" 
@@ -142,7 +148,7 @@
                 Width="238" Height="54" 
                 Padding="15,8,10,10"
                 FontSize="20" FontFamily="./fonts/#Irish Grover" 
-                Foreground="White" Background="#FFFF6F00" BorderBrush="White"
+                Foreground="#FFC1C0C0" Background="Gray" BorderBrush="White"
                 HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.535,2"/>
             </Canvas>
 

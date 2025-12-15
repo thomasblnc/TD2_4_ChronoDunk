@@ -56,7 +56,7 @@ namespace ChronoDunk
         int aiStealAggro = 3;
 
         int aiShootTimer = 0;
-        int aiStealTimer = 0;
+        int aiStealTime = 0;
         int aiActionTimer = 0;
 
         // --- BALLON ---
@@ -204,7 +204,7 @@ namespace ChronoDunk
             ballVelX = 0; ballVelY = 0; ballAngle = 0; isSuperShot = false;
             playerHasBall = false; enemyHasBall = false;
             pickupCooldown = withDelay ? 60 : 0;
-            aiShootTimer = 0; aiStealTimer = 0; aiActionTimer = 0; isAiming = false;
+            aiShootTimer = 0; aiStealTime = 0; aiActionTimer = 0; isAiming = false;
             TrajectoryLine.Visibility = Visibility.Collapsed;
             Canvas.SetLeft(Player, 200); SetFacing(Player, true);
             Canvas.SetLeft(Enemy, WINDOW_WIDTH - 200 - Enemy.Width); SetFacing(Enemy, false);
@@ -326,28 +326,61 @@ namespace ChronoDunk
         }
         private void UpdateBallVisuals() { Ball.Opacity = (isSuperShot && DateTime.Now.Millisecond % 100 < 50) ? 0.5 : 1.0; Canvas.SetLeft(Ball, ballX); Canvas.SetTop(Ball, ballY); }
 
-        private void OnMouseDown(object sender, MouseButtonEventArgs e) { if (isPaused) return; if (playerHasBall || enemyHasBall) { isAiming = true; TrajectoryLine.Visibility = Visibility.Visible; TrajectoryLine.Stroke = superCharge >= 100 ? Brushes.Red : Brushes.Yellow; } this.Focus(); }
+        private void OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (isPaused) return;
+
+            // CORRECTION : On vérifie SEULEMENT si le joueur a la balle
+            if (playerHasBall)
+            {
+                isAiming = true;
+                TrajectoryLine.Visibility = Visibility.Visible;
+                TrajectoryLine.Stroke = superCharge >= 100 ? Brushes.Red : Brushes.Yellow;
+            }
+            this.Focus();
+        }
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (isPaused) return;
-            if (isAiming && (playerHasBall || enemyHasBall))
+
+            // CORRECTION : On retire "|| enemyHasBall"
+            if (isAiming && playerHasBall)
             {
                 Point mousePos = e.GetPosition(GameCanvas);
-                double velX = (mousePos.X - ballX) * 0.15; double velY = (mousePos.Y - ballY) * 0.15;
-                if (velX > 35) velX = 35; if (velX < -35) velX = -35; if (velY > 35) velY = 35; if (velY < -35) velY = -35;
+                double velX = (mousePos.X - ballX) * 0.15;
+                double velY = (mousePos.Y - ballY) * 0.15;
+
+                if (velX > 35) velX = 35; if (velX < -35) velX = -35;
+                if (velY > 35) velY = 35; if (velY < -35) velY = -35;
+
                 DrawTrajectory(ballX, ballY, velX, velY);
             }
         }
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             if (isPaused) return;
-            if (isAiming && (playerHasBall || enemyHasBall))
+
+            // CORRECTION : On retire "|| enemyHasBall"
+            if (isAiming && playerHasBall)
             {
-                isAiming = false; TrajectoryLine.Visibility = Visibility.Collapsed;
+                isAiming = false;
+                TrajectoryLine.Visibility = Visibility.Collapsed;
+
                 Point mousePos = e.GetPosition(GameCanvas);
-                ballVelX = (mousePos.X - ballX) * 0.15; ballVelY = (mousePos.Y - ballY) * 0.15;
-                if (superCharge >= 100) { isSuperShot = true; ballVelX = 25; ballVelY = -15; superCharge = 0; }
-                playerHasBall = false; enemyHasBall = false; pickupCooldown = 30;
+                ballVelX = (mousePos.X - ballX) * 0.15;
+                ballVelY = (mousePos.Y - ballY) * 0.15;
+
+                if (superCharge >= 100)
+                {
+                    isSuperShot = true;
+                    ballVelX = 25;
+                    ballVelY = -15;
+                    superCharge = 0;
+                }
+
+                playerHasBall = false;
+                // enemyHasBall = false; // Plus besoin de le forcer à false ici car l'ennemi ne peut pas l'avoir si on est entré dans ce if
+                pickupCooldown = 30;
             }
         }
         private void DrawTrajectory(double startX, double startY, double velX, double velY)
@@ -380,8 +413,7 @@ namespace ChronoDunk
         private void EndGame()
         {
             isGameActive = false; gameTimer.Stop(); matchClock.Stop(); GameOverScreen.Visibility = Visibility.Visible;
-            string winner = playerScore > enemyScore ? "VICTOIRE !" : (playerScore == enemyScore ? "ÉGALITÉ" : "DÉFAITE...");
-            FinalScoreText.Text = $"{playerScore} - {enemyScore}\n{winner}";
+            FinalScoreText.Text = $"{playerScore} - {enemyScore}";
         }
 
         private void Resume_Click(object sender, RoutedEventArgs e) => TogglePause();
@@ -404,6 +436,33 @@ namespace ChronoDunk
         private void SetFacing(Image t, bool r) { ((ScaleTransform)t.RenderTransform).ScaleX = r ? 1 : -1; }
         private void OnKeyDown(object sender, KeyEventArgs e) { if (e.Key == Key.Escape) TogglePause(); if (isPaused) return; if (e.Key == Key.Up && !playerJumping) { playerVelY = jumpForce; playerJumping = true; } }
         private void OnKeyUp(object sender, KeyEventArgs e) { }
+
+        private void buttonRejouer_Click(object sender, RoutedEventArgs e)
+        {
+            // 1. Réinitialiser les scores, le temps et la barre de puissance
+            playerScore = 0;
+            enemyScore = 0;
+            superCharge = 0;
+            matchTime = 30; // Remet le temps initial (30 secondes)
+            isPaused = false;
+
+            // 2. Mettre à jour l'affichage des textes
+            UpdateScore();
+            SuperBar.Value = 0;
+            TimerText.Text = matchTime.ToString("00");
+
+            // 3. Masquer le menu pause
+            GameOverScreen.Visibility = Visibility.Collapsed;
+
+            // 4. Relancer la boucle de jeu principale
+            gameTimer.Start();
+
+            // 5. Lancer la procédure de démarrage (Replace les joueurs + Compte à rebours 3, 2, 1...)
+            StartCountdown();
+
+            // 6. Redonner le focus au jeu (pour que le clavier fonctionne immédiatement)
+            this.Focus();
+        }
 
         // GESTION MENU OPTIONS OVERLAY
         private void ButtonRetourOptions_Click(object sender, RoutedEventArgs e) { canvasMenuPause.Visibility = Visibility.Visible; MenuOptions.Visibility = Visibility.Collapsed; }
