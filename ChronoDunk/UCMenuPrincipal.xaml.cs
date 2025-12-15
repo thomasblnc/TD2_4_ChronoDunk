@@ -20,9 +20,14 @@ namespace ChronoDunk
     /// </summary>
     public partial class UCMenuPrincipal : UserControl
     {
+
+        public static int meilleurScore = 0;
+
         public UCMenuPrincipal()
         {
             InitializeComponent();
+
+            labMeilleurScore.Content = $"Meilleur score : {meilleurScore}";
         }
 
         private void buttonJeu_Click(object sender, RoutedEventArgs e)

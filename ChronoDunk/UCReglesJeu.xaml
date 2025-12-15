@@ -29,8 +29,8 @@
                     <TextBlock x:Name="descriptionObjectif" Text="Marquez un maximum de paniers avant la fin du temps imparti ! Enchaînez les tirs pour exploser le meilleur score." Foreground="White" FontSize="18" TextWrapping="Wrap" Margin="0,0,0,20"/>
 
                     <TextBlock x:Name="textScore" Text="2. LE SCORE" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
-                    <TextBlock x:Name="text2pts" Text="2 Points : Zone intérieure" Foreground="White" FontSize="18" Margin="0,0,0,5"/>
-                    <TextBlock x:Name="text3pts" Text="3 Points : Derrière la ligne" Foreground="White" FontSize="18" Margin="0,0,0,20"/>
+                    <TextBlock x:Name="text2pts" Text="2 Points : Zone intérieure" Foreground="White" FontSize="18" Margin="0,0,0,20"/>
+                    
 
                     <TextBlock x:Name="textCommandes" Text="3. LES COMMANDES" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
 

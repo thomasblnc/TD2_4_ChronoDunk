@@ -4,7 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-              d:DesignHeight="720" Width="1280"
+             d:DesignHeight="720" Width="1280"
              Focusable="True"
              KeyDown="OnKeyDown" KeyUp="OnKeyUp"
              MouseDown="OnMouseDown" MouseUp="OnMouseUp" MouseMove="OnMouseMove">
@@ -44,7 +44,7 @@
 
     <Grid Background="Black">
 
-        <Canvas x:Name="GameCanvas" 
+        <Canvas x:Name="canvasJeu" 
                 Background="Transparent" 
                 MouseLeftButtonDown="GameCanvas_Click" 
                 RenderTransformOrigin="0.5,0.5">
@@ -60,7 +60,7 @@
 
             <StackPanel Canvas.Left="540" Canvas.Top="18" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Border Background="#E5000000" CornerRadius="5" Margin="0,0,0,25" HorizontalAlignment="Center" Padding="15,2">
-                    <TextBlock x:Name="TimerText" Text="30" Foreground="#00FF00" FontSize="35" FontWeight="Bold" FontFamily="Consolas"/>
+                    <TextBlock x:Name="TimerMatch" Text="30" Foreground="#00FF00" FontSize="35" FontWeight="Bold" FontFamily="Consolas"/>
                 </Border>
                 <Border Background="#E5000000" CornerRadius="5" HorizontalAlignment="Center" Padding="10,5">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -78,12 +78,12 @@
             <ProgressBar x:Name="SuperBar" Width="200" Height="20" Canvas.Left="10" Canvas.Bottom="10" Background="Gray" Foreground="OrangeRed" Value="0" Maximum="100" HorizontalAlignment="Center" Canvas.Top="640" VerticalAlignment="Top"/>
             <TextBlock Text="SUPER FEU" Canvas.Left="15" Canvas.Bottom="12" Foreground="White" FontWeight="Bold" FontSize="10" IsHitTestVisible="False" HorizontalAlignment="Center" Canvas.Top="643" VerticalAlignment="Top"/>
 
-            <Polyline x:Name="TrajectoryLine" Stroke="Gray" StrokeThickness="5" StrokeDashArray="4 2" Opacity="0.8" IsHitTestVisible="False"/>
+            <Polyline x:Name="TrajectoireBalle" Stroke="Gray" StrokeThickness="5" StrokeDashArray="4 2" Opacity="0.8" IsHitTestVisible="False"/>
 
-            <Rectangle x:Name="HitboxBackboardRight" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="175" Canvas.Left="1075" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Rectangle x:Name="HitboxHoopRight" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="273" Canvas.Left="1005" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Rectangle x:Name="HitboxBackboardLeft" Fill="Red" Opacity="0" Width="40" Height="100" Canvas.Top="178" Canvas.Left="183" RenderTransformOrigin="0.4,0.49" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Rectangle x:Name="HitboxHoopLeft" Fill="Lime" Opacity="0" Width="43" Height="6" Canvas.Top="275" Canvas.Left="238" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Rectangle x:Name="collisionPanierDroit" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="175" Canvas.Left="1075" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Rectangle x:Name="zoneScorePanierDroit" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="273" Canvas.Left="1005" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Rectangle x:Name="collisionPanierGauche" Fill="Red" Opacity="0" Width="40" Height="100" Canvas.Top="178" Canvas.Left="183" RenderTransformOrigin="0.4,0.49" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Rectangle x:Name="zoneScorePanierGauche" Fill="Lime" Opacity="0" Width="43" Height="6" Canvas.Top="275" Canvas.Left="238" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
             <Image x:Name="Player" Source="/images/player.png" Height="300" Width="200" Canvas.Top="364" Canvas.Left="255" IsHitTestVisible="False" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Image.RenderTransform>
@@ -100,14 +100,13 @@
                 </Image.RenderTransform>
             </Image>
 
-            <Image x:Name="Ball" Source="/images/ballon.png" Height="80" Width="80" Canvas.Top="486" Canvas.Left="600" IsHitTestVisible="False" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Balle" Source="/images/ballon.png" Height="80" Width="80" Canvas.Top="486" Canvas.Left="600" IsHitTestVisible="False" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Image.RenderTransform>
             </Image>
 
             <Grid>
-
                 <Button x:Name="buttonPause" 
                         Click="PauseButton_Click"
                         Style="{StaticResource StyleBoutonPauseAnime}"
@@ -127,7 +126,7 @@
                 </TextBlock.Effect>
             </TextBlock>
 
-            <Grid x:Name="GameOverScreen" Width="800" Height="600" Background="#CC000000" Visibility="Visible" Canvas.Left="240" Canvas.Top="60">
+            <Grid x:Name="GameOverScreen" Width="800" Height="600" Background="#CC000000" Visibility="Collapsed" Canvas.Left="240" Canvas.Top="60">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Text="FIN DU MATCH" Margin="20,0,0,20" Foreground="White" FontSize="60" FontWeight="Bold" HorizontalAlignment="Center" FontFamily="./fonts/#Irish Grover" Height="115"/>
                     <TextBlock x:Name="FinalScoreText" Margin="0,0,0,20" Text="00 - 00" Foreground="Yellow" FontSize="50" HorizontalAlignment="Center" Height="119" />
@@ -162,34 +161,34 @@
                 </Image>
 
                 <Button x:Name="buttonQuitter" 
-                            Click="buttonQuitter_Click"
-                            Content="QUITTER" 
-                            Canvas.Left="244" Canvas.Top="396" 
-                            Width="238" Height="56" 
-                            Padding="10,8,10,10"
-                            FontSize="20" FontFamily="./fonts/#Irish Grover" 
-                            Foreground="White" Background="#FFFF6F00" BorderBrush="White"
-                            HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        Click="buttonQuitter_Click"
+                        Content="QUITTER" 
+                        Canvas.Left="244" Canvas.Top="396" 
+                        Width="238" Height="56" 
+                        Padding="10,8,10,10"
+                        FontSize="20" FontFamily="./fonts/#Irish Grover" 
+                        Foreground="White" Background="#FFFF6F00" BorderBrush="White"
+                        HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
                 <Button x:Name="buttonReprendre" 
-                            Click="buttonReprendre_Click"
-                            Content="REPRENDRE" 
-                            Canvas.Left="244" Canvas.Top="191" 
-                            Width="238" Height="55" 
-                            Padding="15,8,10,10"
-                            FontSize="20" FontFamily="./fonts/#Irish Grover" 
-                            Foreground="White" Background="#FFFF6F00" BorderBrush="White"
-                            HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        Click="buttonReprendre_Click"
+                        Content="REPRENDRE" 
+                        Canvas.Left="244" Canvas.Top="191" 
+                        Width="238" Height="55" 
+                        Padding="15,8,10,10"
+                        FontSize="20" FontFamily="./fonts/#Irish Grover" 
+                        Foreground="White" Background="#FFFF6F00" BorderBrush="White"
+                        HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
                 <Button x:Name="buttonOptions" 
-                            Click="ButtonOptions_Click"
-                            Content="OPTIONS" 
-                            Canvas.Left="244" Canvas.Top="294" 
-                            Width="238" Height="54" 
-                            Padding="15,8,10,10"
-                            FontSize="20" FontFamily="./fonts/#Irish Grover" 
-                            Foreground="White" Background="#FFFF6F00" BorderBrush="White"
-                            HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.535,2"/>
+                        Click="ButtonOptions_Click"
+                        Content="OPTIONS" 
+                        Canvas.Left="244" Canvas.Top="294" 
+                        Width="238" Height="54" 
+                        Padding="15,8,10,10"
+                        FontSize="20" FontFamily="./fonts/#Irish Grover" 
+                        Foreground="White" Background="#FFFF6F00" BorderBrush="White"
+                        HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.535,2"/>
             </Canvas>
 
             <Grid x:Name="MenuOptions" Visibility="Collapsed" Background="#E6000000" Canvas.Left="340" Canvas.Top="151" HorizontalAlignment="Center" Height="327" VerticalAlignment="Top" >
@@ -205,41 +204,56 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Difficulté :" Foreground="White" FontSize="22" VerticalAlignment="Center"/>
                             <ComboBox x:Name="DifficulteIA" 
-                                        SelectionChanged="ComboDifficulty_SelectionChanged"
-                                          Grid.Column="1" 
-                                          FontFamily="./fonts/#Irish Grover" 
-                                          FontSize="18" Height="35" 
-                                          VerticalContentAlignment="Center">
+                                      SelectionChanged="ComboDifficulty_SelectionChanged"
+                                      Grid.Column="1" 
+                                      FontFamily="./fonts/#Irish Grover" 
+                                      FontSize="18" Height="35" 
+                                      VerticalContentAlignment="Center">
                                 <ComboBoxItem Content="Facile"/>
                                 <ComboBoxItem Content="Normal"/>
                                 <ComboBoxItem Content="NBA Star"/>
                             </ComboBox>
                         </Grid>
+
+                        <Grid Margin="0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Contrôles :" Foreground="White" FontSize="22" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="ChoixControles" 
+                                      Grid.Column="1" 
+                                      FontFamily="./fonts/#Irish Grover" 
+                                      FontSize="18" Height="35" 
+                                      VerticalContentAlignment="Center"
+                                      SelectedIndex="0">
+                                <ComboBoxItem Content="Flèches"/>
+                                <ComboBoxItem Content="ZQSD"/>
+                            </ComboBox>
+                        </Grid>
+
                     </StackPanel>
                 </Border>
 
-
                 <Button Content="VALIDER" Click="ButtonValider_Click"
-         Width="180" Height="50" Margin="107,227,313,50"
-         Background="#00AA00" Foreground="White" FontSize="24" FontFamily="./fonts/#Irish Grover">
+                        Width="180" Height="50" Margin="107,250,313,27"
+                        Background="#00AA00" Foreground="White" FontSize="24" FontFamily="./fonts/#Irish Grover">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>
                         </Style>
                     </Button.Resources>
                 </Button>
+
                 <Button Content="RETOUR" Click="ButtonRetourOptions_Click"
-     Width="200" Height="50"
-     Background="#FFFF6F00" Foreground="White" FontSize="24" FontFamily="./fonts/#Irish Grover" Margin="318,227,82,50">
+                        Width="200" Height="50"
+                        Background="#FFFF6F00" Foreground="White" FontSize="24" FontFamily="./fonts/#Irish Grover" Margin="318,250,82,27">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="10"/>
                         </Style>
                     </Button.Resources>
                 </Button>
-
-
-
 
             </Grid>
 

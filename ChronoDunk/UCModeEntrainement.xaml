@@ -42,27 +42,27 @@
 
     <Grid Background="Black">
 
-        <Canvas x:Name="GameCanvas" Background="Transparent" MouseLeftButtonDown="GameCanvas_Click">
+        <Canvas x:Name="canvasJeu" Background="Transparent" MouseLeftButtonDown="GameCanvas_Click">
 
             <Image Source="/images/background.jpg" Stretch="Fill" Width="1280" Height="720" IsHitTestVisible="False"/>
 
             <ProgressBar x:Name="SuperBar" Width="200" Height="20" Canvas.Left="10" Canvas.Bottom="10" Background="Gray" Foreground="OrangeRed" Value="0" Maximum="100"/>
             <TextBlock Text="PUISSANCE" Canvas.Left="15" Canvas.Bottom="12" Foreground="White" FontWeight="Bold" FontSize="10" IsHitTestVisible="False"/>
 
-            <Polyline x:Name="TrajectoryLine" Stroke="Yellow" StrokeThickness="5" StrokeDashArray="4 2" Opacity="0.8" IsHitTestVisible="False"/>
+            <Polyline x:Name="TrajectoireBalle" Stroke="Yellow" StrokeThickness="5" StrokeDashArray="4 2" Opacity="0.8" IsHitTestVisible="False"/>
 
-            <Rectangle x:Name="HitboxBackboardRight" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="175" Canvas.Left="1075"/>
-            <Rectangle x:Name="HitboxHoopRight" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="273" Canvas.Left="1005"/>
-            <Rectangle x:Name="HitboxBackboardLeft" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="180" Canvas.Left="188" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Rectangle x:Name="HitboxHoopLeft" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="278" Canvas.Left="233"/>
+            <Rectangle x:Name="collisionPanierDroit" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="175" Canvas.Left="1075"/>
+            <Rectangle x:Name="zoneScorePanierDroit" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="273" Canvas.Left="1005"/>
+            <Rectangle x:Name="collisionPanierGauche" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="180" Canvas.Left="188" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Rectangle x:Name="zoneScorePanierGauche" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="278" Canvas.Left="233"/>
 
-            <Image x:Name="Player" Source="/images/player.png" Height="300" Width="200" Canvas.Top="364" Canvas.Left="200" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Joueur" Source="/images/player.png" Height="300" Width="200" Canvas.Top="364" Canvas.Left="200" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <ScaleTransform ScaleX="1"/>
                 </Image.RenderTransform>
             </Image>
 
-            <Image x:Name="Ball" Source="/images/ballon.png" Height="80" Width="80" Canvas.Top="186" Canvas.Left="600" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Image x:Name="Balle" Source="/images/ballon.png" Height="80" Width="80" Canvas.Top="186" Canvas.Left="600" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Image.RenderTransform>
                     <RotateTransform Angle="0"/>
                 </Image.RenderTransform>
@@ -97,7 +97,7 @@
                 </Grid>
             </StackPanel>
 
-            <Canvas x:Name="canvasMenuPause" Visibility="Visible" Background="#CC000000" Height="492" Canvas.Left="277" Canvas.Top="114" Width="726">
+            <Canvas x:Name="canvasMenuPause" Visibility="Collapsed" Background="#CC000000" Height="492" Canvas.Left="277" Canvas.Top="114" Width="726">
 
                 <TextBlock x:Name="textMenu" Text="Menu Pause" Canvas.Left="189" Canvas.Top="10" FontFamily="./fonts/#Irish Grover" FontSize="64" Foreground="Yellow" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock x:Name="FinalScoreText" Text="00 - 00" Canvas.Left="309" Canvas.Top="118" FontFamily="./fonts/#Irish Grover" FontSize="32" Foreground="#FFFF5200" HorizontalAlignment="Left" VerticalAlignment="Center"/>

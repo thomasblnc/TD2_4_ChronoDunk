@@ -54,7 +54,7 @@
 
         <Label x:Name="labNomJeu" Content="CHRONO DUNK" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="331" Canvas.Top="70" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="90" Background="#00000000" Height="96" Width="618"/>
 
-        <Label Content="Meilleur score : 28" FontFamily="./fonts/#Irish Grover" Canvas.Left="13" Canvas.Top="36" Foreground="#FFEDDC1F" RenderTransformOrigin="0.878,1.213" FontSize="32" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="334">
+        <Label x:Name="labMeilleurScore" Content="Meilleur score : 28" FontFamily="./fonts/#Irish Grover" Canvas.Left="13" Canvas.Top="36" Foreground="#FFEDDC1F" RenderTransformOrigin="0.878,1.213" FontSize="32" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="334">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

@@ -58,7 +58,7 @@ namespace ChronoDunk
             {
                 baseSpeed = p1Stats.Speed;
                 jumpForce = p1Stats.JumpForce;
-                try { Player.Source = new BitmapImage(new Uri(p1Stats.ImagePath, UriKind.Relative)); } catch { }
+                try { Joueur.Source = new BitmapImage(new Uri(p1Stats.ImagePath, UriKind.Relative)); } catch { }
             }
 
             this.Loaded += (s, e) =>
@@ -89,7 +89,7 @@ namespace ChronoDunk
             playerHasBall = false;
             pickupCooldown = 0;
             isAiming = false;
-            TrajectoryLine.Visibility = Visibility.Collapsed;
+            TrajectoireBalle.Visibility = Visibility.Collapsed;
             UpdateBallVisuals();
         }
 
@@ -106,11 +106,13 @@ namespace ChronoDunk
             {
                 // En pause, on cache la visée pour faire propre
                 isAiming = false;
-                TrajectoryLine.Visibility = Visibility.Collapsed;
+                TrajectoireBalle.Visibility = Visibility.Collapsed;
 
                 isPaused = true;
                 canvasMenuPause.Visibility = Visibility.Visible;
                 gameTimer.Stop();
+
+                if (FinalScoreText != null) FinalScoreText.Text = $"{playerScore} - {aiScore}";
             }
         }
 
@@ -122,8 +124,8 @@ namespace ChronoDunk
 
             // Déplacements
             double currentSpeed = Keyboard.IsKeyDown(Key.LeftShift) ? (baseSpeed + sprintBonus) : baseSpeed;
-            if (Keyboard.IsKeyDown(Key.Left)) { MoveChar(-currentSpeed); ((ScaleTransform)Player.RenderTransform).ScaleX = -1; }
-            if (Keyboard.IsKeyDown(Key.Right)) { MoveChar(currentSpeed); ((ScaleTransform)Player.RenderTransform).ScaleX = 1; }
+            if (Keyboard.IsKeyDown(Key.Left)) { MoveChar(-currentSpeed); ((ScaleTransform)Joueur.RenderTransform).ScaleX = -1; }
+            if (Keyboard.IsKeyDown(Key.Right)) { MoveChar(currentSpeed); ((ScaleTransform)Joueur.RenderTransform).ScaleX = 1; }
             if (Keyboard.IsKeyDown(Key.Up) && !playerJumping) { playerVelY = jumpForce; playerJumping = true; }
 
             // Physique Joueur
@@ -143,37 +145,37 @@ namespace ChronoDunk
 
         private void MoveChar(double amount)
         {
-            double newLeft = Canvas.GetLeft(Player) + amount;
-            if (newLeft > -50 && newLeft < WINDOW_WIDTH - 150) Canvas.SetLeft(Player, newLeft);
+            double newLeft = Canvas.GetLeft(Joueur) + amount;
+            if (newLeft > -50 && newLeft < WINDOW_WIDTH - 150) Canvas.SetLeft(Joueur, newLeft);
         }
 
         private void ApplyPhysics()
         {
-            double top = Canvas.GetTop(Player) + playerVelY;
+            double top = Canvas.GetTop(Joueur) + playerVelY;
             playerVelY += GRAVITY;
-            if (top + Player.Height >= GROUND_Y)
+            if (top + Joueur.Height >= GROUND_Y)
             {
-                top = GROUND_Y - Player.Height;
+                top = GROUND_Y - Joueur.Height;
                 playerJumping = false;
                 playerVelY = 0;
             }
-            Canvas.SetTop(Player, top);
+            Canvas.SetTop(Joueur, top);
         }
 
         private void HandleBallLogic()
         {
             if (playerHasBall)
             {
-                ballX = Canvas.GetLeft(Player) + (Player.Width / 2) - 40;
-                ballY = Canvas.GetTop(Player) + (Player.Height / 3);
+                ballX = Canvas.GetLeft(Joueur) + (Joueur.Width / 2) - 40;
+                ballY = Canvas.GetTop(Joueur) + (Joueur.Height / 3);
                 ballVelX = 0; ballVelY = 0; isSuperShot = false;
             }
             else
             {
                 ballX += ballVelX; ballY += ballVelY; ballVelY += GRAVITY * 0.8; ballAngle += ballVelX * 2;
 
-                RotateTransform rotate = Ball.RenderTransform as RotateTransform;
-                if (rotate == null) { rotate = new RotateTransform(); Ball.RenderTransform = rotate; }
+                RotateTransform rotate = Balle.RenderTransform as RotateTransform;
+                if (rotate == null) { rotate = new RotateTransform(); Balle.RenderTransform = rotate; }
                 rotate.Angle = ballAngle;
 
                 // Rebond sol
@@ -191,7 +193,7 @@ namespace ChronoDunk
                 if (pickupCooldown == 0)
                 {
                     Rect ballRect = new Rect(ballX, ballY, 80, 80);
-                    Rect playerRect = new Rect(Canvas.GetLeft(Player) + 50, Canvas.GetTop(Player), 100, 300);
+                    Rect playerRect = new Rect(Canvas.GetLeft(Joueur) + 50, Canvas.GetTop(Joueur), 100, 300);
                     if (playerRect.IntersectsWith(ballRect)) { playerHasBall = true; isAiming = false; }
                 }
             }
@@ -200,8 +202,8 @@ namespace ChronoDunk
 
         private void UpdateBallVisuals()
         {
-            Ball.Opacity = (isSuperShot && DateTime.Now.Millisecond % 100 < 50) ? 0.5 : 1.0;
-            Canvas.SetLeft(Ball, ballX); Canvas.SetTop(Ball, ballY);
+            Balle.Opacity = (isSuperShot && DateTime.Now.Millisecond % 100 < 50) ? 0.5 : 1.0;
+            Canvas.SetLeft(Balle, ballX); Canvas.SetTop(Balle, ballY);
         }
 
         private void CheckCollisions()
@@ -210,21 +212,21 @@ namespace ChronoDunk
             Rect b = new Rect(ballX, ballY, 80, 80);
 
             // Panier Droite
-            if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxBackboardRight), Canvas.GetTop(HitboxBackboardRight), 10, 100))) ballVelX = -ballVelX * 0.6;
-            if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxBackboardLeft), Canvas.GetTop(HitboxBackboardLeft), 10, 100))) ballVelX = -ballVelX * 0.6;
+            if (b.IntersectsWith(new Rect(Canvas.GetLeft(collisionPanierDroit), Canvas.GetTop(collisionPanierDroit), 10, 100))) ballVelX = -ballVelX * 0.6;
+            if (b.IntersectsWith(new Rect(Canvas.GetLeft(collisionPanierGauche), Canvas.GetTop(collisionPanierGauche), 10, 100))) ballVelX = -ballVelX * 0.6;
             // Si on marque
-            if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxHoopRight), Canvas.GetTop(HitboxHoopRight), 50, 10)) && ballVelY > 0)
+            if (b.IntersectsWith(new Rect(Canvas.GetLeft(zoneScorePanierDroit), Canvas.GetTop(zoneScorePanierDroit), 50, 10)) && ballVelY > 0)
             {
                 // Juste des effets visuels, pas de score
                 playerScore += 2;
-                SpawnConfetti(Canvas.GetLeft(HitboxHoopRight), Canvas.GetTop(HitboxHoopRight));
+                SpawnConfetti(Canvas.GetLeft(zoneScorePanierDroit), Canvas.GetTop(zoneScorePanierDroit));
                 ResetBall();
                 
             }
-            if (b.IntersectsWith(new Rect(Canvas.GetLeft(HitboxHoopLeft), Canvas.GetTop(HitboxHoopLeft), 50, 10)) && ballVelY > 0)
+            if (b.IntersectsWith(new Rect(Canvas.GetLeft(zoneScorePanierGauche), Canvas.GetTop(zoneScorePanierGauche), 50, 10)) && ballVelY > 0)
             {
                 aiScore += 2;
-                SpawnConfetti(Canvas.GetLeft(HitboxHoopLeft), Canvas.GetTop(HitboxHoopLeft)); 
+                SpawnConfetti(Canvas.GetLeft(zoneScorePanierGauche), Canvas.GetTop(zoneScorePanierGauche)); 
                 ResetBall();
                 
             }
@@ -235,25 +237,25 @@ namespace ChronoDunk
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (isPaused) return;
-            if (playerHasBall) { isAiming = true; TrajectoryLine.Visibility = Visibility.Visible; TrajectoryLine.Stroke = superCharge >= 100 ? Brushes.Red : Brushes.Yellow; }
+            if (playerHasBall) { isAiming = true; TrajectoireBalle.Visibility = Visibility.Visible; TrajectoireBalle.Stroke = superCharge >= 100 ? Brushes.Red : Brushes.Yellow; }
         }
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (isPaused || !isAiming || !playerHasBall) return;
-            Point mousePos = e.GetPosition(GameCanvas);
+            Point mousePos = e.GetPosition(canvasJeu);
             double velX = (mousePos.X - ballX) * 0.15; double velY = (mousePos.Y - ballY) * 0.15;
             if (velX > 35) velX = 35; if (velX < -35) velX = -35; if (velY > 35) velY = 35; if (velY < -35) velY = -35;
 
             // Dessin trajectoire
             PointCollection points = new PointCollection();
             for (int i = 0; i < 15; i++) { double t = i * 2; points.Add(new Point(ballX + velX * t, ballY + velY * t + 0.5 * (GRAVITY * 0.8) * t * t)); }
-            TrajectoryLine.Points = points;
+            TrajectoireBalle.Points = points;
         }
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             if (isPaused || !isAiming || !playerHasBall) return;
-            isAiming = false; TrajectoryLine.Visibility = Visibility.Collapsed;
-            Point mousePos = e.GetPosition(GameCanvas);
+            isAiming = false; TrajectoireBalle.Visibility = Visibility.Collapsed;
+            Point mousePos = e.GetPosition(canvasJeu);
             ballVelX = (mousePos.X - ballX) * 0.15; ballVelY = (mousePos.Y - ballY) * 0.15;
             if (superCharge >= 100) { isSuperShot = true; ballVelX = 25; ballVelY = -15; superCharge = 0; }
             playerHasBall = false; pickupCooldown = 30;
@@ -267,7 +269,7 @@ namespace ChronoDunk
                 Rectangle rect = new Rectangle { Width = 8, Height = 8 };
                 byte r = (byte)rnd.Next(256); byte g = (byte)rnd.Next(256); byte b = (byte)rnd.Next(256);
                 rect.Fill = new SolidColorBrush(Color.FromRgb(r, g, b));
-                Canvas.SetLeft(rect, x); Canvas.SetTop(rect, y); GameCanvas.Children.Add(rect);
+                Canvas.SetLeft(rect, x); Canvas.SetTop(rect, y); canvasJeu.Children.Add(rect);
                 particles.Add(new Particle { Shape = rect, VelX = rnd.NextDouble() * 10 - 5, VelY = rnd.NextDouble() * 10 - 5, Life = 60 });
             }
         }
@@ -277,20 +279,27 @@ namespace ChronoDunk
             {
                 Particle p = particles[i]; p.Life--;
                 Canvas.SetLeft(p.Shape, Canvas.GetLeft(p.Shape) + p.VelX); Canvas.SetTop(p.Shape, Canvas.GetTop(p.Shape) + p.VelY); p.VelY += 0.5;
-                if (p.Life <= 0) { GameCanvas.Children.Remove(p.Shape); particles.RemoveAt(i); }
+                if (p.Life <= 0) { canvasJeu.Children.Remove(p.Shape); particles.RemoveAt(i); }
             }
         }
-
-        private void UpdateScore() { PlayerScoreText.Text = playerScore.ToString(); EnemyScoreText.Text = aiScore.ToString(); }
-
-        private void FinDeJeu()
+        private void UpdateScore()
         {
-            FinalScoreText.Text = $"{playerScore} - {aiScore}";
+            PlayerScoreText.Text = playerScore.ToString();
+            EnemyScoreText.Text = aiScore.ToString();
+
+            if (FinalScoreText == null)
+            {
+                FinalScoreText.Text = "00 - 00";
+            }
+            else
+            {
+                FinalScoreText.Text = $"{playerScore} - {aiScore}";
+            }
         }
 
         // --- BOUTONS ---
         private void RetourMenu_Click(object sender, RoutedEventArgs e) { this.Content = new UCMenuPrincipal(); }
-        private void PauseButton_Click(object sender, RoutedEventArgs e) { gameTimer.Stop(); canvasMenuPause.Visibility = Visibility.Visible; }
+        private void PauseButton_Click(object sender, RoutedEventArgs e) { gameTimer.Stop(); canvasMenuPause.Visibility = Visibility.Visible; if (FinalScoreText != null) FinalScoreText.Text = $"{playerScore} - {aiScore}";  }
         private void buttonQuitter_Click(object sender, RoutedEventArgs e) { this.Content = new UCMenuPrincipal(); }
         private void buttonReprendre_Click(object sender, RoutedEventArgs e) { gameTimer.Start(); canvasMenuPause.Visibility = Visibility.Collapsed; this.Focus(); }
         private void ButtonOptions_Click(object sender, RoutedEventArgs e) { }
