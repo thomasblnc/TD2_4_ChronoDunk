@@ -24,6 +24,7 @@ namespace ChronoDunk
 
         // --- ETAT ---
         bool isPaused = false;
+        bool useZQSD = false;
 
         // --- JOUEUR ---
         double baseSpeed = 12;
@@ -122,11 +123,32 @@ namespace ChronoDunk
 
             if (pickupCooldown > 0) pickupCooldown--;
 
-            // Déplacements
+            // Définition des touches selon le mode
+            bool inputLeft = (!useZQSD && Keyboard.IsKeyDown(Key.Left)) || (useZQSD && Keyboard.IsKeyDown(Key.Q));
+            bool inputRight = (!useZQSD && Keyboard.IsKeyDown(Key.Right)) || (useZQSD && Keyboard.IsKeyDown(Key.D));
+            bool inputJump = (!useZQSD && Keyboard.IsKeyDown(Key.Up)) || (useZQSD && Keyboard.IsKeyDown(Key.Z));
+
+            // Calcul vitesse
             double currentSpeed = Keyboard.IsKeyDown(Key.LeftShift) ? (baseSpeed + sprintBonus) : baseSpeed;
-            if (Keyboard.IsKeyDown(Key.Left)) { MoveChar(-currentSpeed); ((ScaleTransform)Joueur.RenderTransform).ScaleX = -1; }
-            if (Keyboard.IsKeyDown(Key.Right)) { MoveChar(currentSpeed); ((ScaleTransform)Joueur.RenderTransform).ScaleX = 1; }
-            if (Keyboard.IsKeyDown(Key.Up) && !playerJumping) { playerVelY = jumpForce; playerJumping = true; }
+
+            // Application des mouvements
+            if (inputLeft)
+            {
+                MoveChar(-currentSpeed);
+                ((ScaleTransform)Joueur.RenderTransform).ScaleX = -1;
+            }
+
+            if (inputRight)
+            {
+                MoveChar(currentSpeed);
+                ((ScaleTransform)Joueur.RenderTransform).ScaleX = 1;
+            }
+
+            if (inputJump && !playerJumping)
+            {
+                playerVelY = jumpForce;
+                playerJumping = true;
+            }
 
             // Physique Joueur
             ApplyPhysics();
@@ -137,10 +159,11 @@ namespace ChronoDunk
             // Collisions Panier
             CheckCollisions();
 
-            // Particules (Juste pour le style si on marque)
+            // Particules
             UpdateParticles();
 
-            SuperBar.Value = superCharge;
+            // Mise à jour barre super
+            if (SuperBar != null) SuperBar.Value = superCharge;
         }
 
         private void MoveChar(double amount)
@@ -302,7 +325,16 @@ namespace ChronoDunk
         private void PauseButton_Click(object sender, RoutedEventArgs e) { gameTimer.Stop(); canvasMenuPause.Visibility = Visibility.Visible; if (FinalScoreText != null) FinalScoreText.Text = $"{playerScore} - {aiScore}";  }
         private void buttonQuitter_Click(object sender, RoutedEventArgs e) { this.Content = new UCMenuPrincipal(); }
         private void buttonReprendre_Click(object sender, RoutedEventArgs e) { gameTimer.Start(); canvasMenuPause.Visibility = Visibility.Collapsed; this.Focus(); }
-        private void ButtonOptions_Click(object sender, RoutedEventArgs e) { }
+        private void ButtonRetourOptions_Click(object sender, RoutedEventArgs e) { canvasMenuPause.Visibility = Visibility.Visible; MenuOptions.Visibility = Visibility.Collapsed; this.Focus(); }
+        private void ButtonOptions_Click(Object sender, RoutedEventArgs e) { MenuOptions.Visibility = Visibility.Visible; }
+        private void ButtonValider_Click(object sender, RoutedEventArgs e)
+        {
+            if (ChoixControles != null) useZQSD = (ChoixControles.SelectedIndex == 1);
+
+            MenuOptions.Visibility = Visibility.Collapsed;
+            if (isPaused) canvasMenuPause.Visibility = Visibility.Visible;
+            this.Focus();
+        }
 
         private void GameCanvas_Click(object sender, MouseButtonEventArgs e) => this.Focus();
         private void OnKeyDown(object sender, KeyEventArgs e) { if (e.Key == Key.Escape) TogglePause(); }

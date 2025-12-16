@@ -148,9 +148,57 @@
                 Width="238" Height="54" 
                 Padding="15,8,10,10"
                 FontSize="20" FontFamily="./fonts/#Irish Grover" 
-                Foreground="#FFC1C0C0" Background="Gray" BorderBrush="White"
+                Foreground="white" Background="#FFFF6F00" BorderBrush="White"
                 HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.535,2"/>
             </Canvas>
+
+            <Grid x:Name="MenuOptions" Visibility="Collapsed" Background="#E6000000" Canvas.Left="340" Canvas.Top="151" HorizontalAlignment="Center" Height="333" VerticalAlignment="Top" >
+                <Border Width="600" CornerRadius="20" BorderBrush="#FFFF6F00" BorderThickness="3" Background="Black">
+                    <StackPanel Margin="30,0,30,0" VerticalAlignment="Center" Height="480">
+
+                        <TextBlock Text="OPTIONS" FontFamily="./fonts/#Irish Grover" FontSize="50" Foreground="#FFFF6F00" HorizontalAlignment="Center" Margin="0,100,0,30"/>
+
+                        <Grid Margin="0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Contrôles :" Foreground="White" FontSize="22" VerticalAlignment="Top" Margin="0,14,0,0"/>
+                            <ComboBox x:Name="ChoixControles" 
+                          Grid.Column="1" 
+                          FontFamily="./fonts/#Irish Grover" 
+                          FontSize="18" Height="35" 
+                          VerticalContentAlignment="Center"
+                          SelectedIndex="0" Margin="0,11,0,-11">
+                                <ComboBoxItem Content="Flèches"/>
+                                <ComboBoxItem Content="ZQSD"/>
+                            </ComboBox>
+                        </Grid>
+
+                    </StackPanel>
+                </Border>
+
+                <Button Content="VALIDER" Click="ButtonValider_Click"
+            Width="180" Height="50" Margin="89,233,331,50"
+            Background="#00AA00" Foreground="White" FontSize="24" FontFamily="./fonts/#Irish Grover">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button Content="RETOUR" Click="ButtonRetourOptions_Click"
+            Width="200" Height="50"
+            Background="#FFFF6F00" Foreground="White" FontSize="24" FontFamily="./fonts/#Irish Grover" Margin="300,233,100,50">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </Grid>
 
         </Canvas>
     </Grid>

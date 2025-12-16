@@ -137,10 +137,10 @@ namespace ChronoDunk
                     aiShootingRange = 400; // Tire à mi-distance
                     break;
                 case 2: // NBA STAR
-                    enemySpeed = 12.5;
-                    aiReactionSpeed = 10; // Réflexes éclairs
-                    aiErrorMargin = 0.2; // Sniper
-                    aiStealAggro = 30; // Très agressif
+                    enemySpeed = 15;
+                    aiReactionSpeed = 5; // Réflexes éclairs
+                    aiErrorMargin = 0; // Sniper
+                    aiStealAggro = 20; // Très agressif
                     aiShootingRange = 650; // Tire à 3 points
                     break;
             }
@@ -149,11 +149,15 @@ namespace ChronoDunk
         // =========================================================
         // IA (AMÉLIORÉE)
         // =========================================================
+        // =========================================================
+        // IA (CORRIGÉE ET NETTOYÉE)
+        // =========================================================
         private void UpdateAI()
         {
+            // 1. DÉCLARATION DES VARIABLES (Au tout début pour être accessibles partout)
             double enemyX = Canvas.GetLeft(Enemy);
             double enemyY = Canvas.GetTop(Enemy);
-            double playerX = Canvas.GetLeft(Player);
+            double playerX = Canvas.GetLeft(Player); // <--- C'est ici qu'elle est définie !
 
             // Coordonnée X du panier gauche (Cible)
             double hoopX = 238;
@@ -166,13 +170,12 @@ namespace ChronoDunk
             {
                 double distanceToHoop = enemyX - hoopX;
 
-                // Si on est trop près (< 150px), on recule pour prendre de l'élan (Fade away)
+                // Si on est trop près (< 150px), on recule pour prendre de l'élan
                 if (distanceToHoop < 150)
                 {
                     MoveChar(Enemy, enemySpeed); // Recule vers la droite
                     SetFacing(Enemy, false);     // Regarde le panier
                 }
-                // Sinon, si on est à portée de tir, on tente sa chance
                 else if (distanceToHoop <= aiShootingRange)
                 {
                     aiShootTimer++;
@@ -184,7 +187,6 @@ namespace ChronoDunk
                 }
                 else
                 {
-                    // Trop loin, on avance
                     MoveChar(Enemy, -enemySpeed);
                     SetFacing(Enemy, false);
                 }
@@ -202,24 +204,49 @@ namespace ChronoDunk
                     aiJumpCooldown = 60;
                 }
             }
-            // --- CAS 3 : DÉFENSE ---
+            // --- CAS 3 : DÉFENSE (C'est ici que playerX est utilisé) ---
             else
             {
                 aiShootTimer = 0;
-                double defensiveSpot = playerX + 150;
 
-                if (defensiveSpot > enemyX + 20) { MoveChar(Enemy, enemySpeed); SetFacing(Enemy, true); }
-                else if (defensiveSpot < enemyX - 20) { MoveChar(Enemy, -enemySpeed); SetFacing(Enemy, false); }
+                // --- LOGIQUE D'AGRESSIVITÉ ---
+                double defensiveSpot;
 
-                if (Math.Abs(enemyX - playerX) < 70 && aiActionTimer > aiStealAggro)
+                // Si le Timer d'action dépasse l'aggro, l'IA cible le JOUEUR (Attaque)
+                if (aiActionTimer > aiStealAggro)
                 {
-                    AttemptSteal(false);
-                    aiActionTimer = 0;
+                    defensiveSpot = playerX; // Elle te fonce dessus !
+                }
+                else
+                {
+                    // Sinon, elle garde une distance de sécurité (Garde)
+                    defensiveSpot = playerX + 150;
                 }
 
+                // MOUVEMENT
+                if (defensiveSpot > enemyX + 20)
+                {
+                    MoveChar(Enemy, enemySpeed);
+                    SetFacing(Enemy, true);
+                }
+                else if (defensiveSpot < enemyX - 20)
+                {
+                    MoveChar(Enemy, -enemySpeed);
+                    SetFacing(Enemy, false);
+                }
+
+                // --- TENTATIVE DE VOL (STEAL) ---
+                // Si l'IA est proche (< 80px) ET en mode attaque
+                if (Math.Abs(enemyX - playerX) < 80 && aiActionTimer > aiStealAggro)
+                {
+                    AttemptSteal(false);
+                    aiActionTimer = 0; // Reset du timer après tentative
+                }
+
+                // --- SAUT DÉFENSIF (CONTRE) ---
                 if (playerJumping && !enemyJumping && Math.Abs(enemyX - playerX) < 100 && aiJumpCooldown == 0)
                 {
-                    if (rnd.Next(0, 10) > 2)
+                    if (rnd.Next(0, 10) > 1) // 80% de chance de sauter pour contrer
                     {
                         enemyVelY = -28;
                         enemyJumping = true;
@@ -474,10 +501,39 @@ namespace ChronoDunk
                 isAiming = false;
                 TrajectoireBalle.Visibility = Visibility.Collapsed;
                 Point mousePos = e.GetPosition(canvasJeu);
-                balleVelX = (mousePos.X - balleX) * 0.15;
-                balleVelY = (mousePos.Y - balleY) * 0.15;
-                if (superCharge >= 100) { isSuperShot = true; balleVelX = 25; balleVelY = -15; superCharge = 0; }
-                playerHasBall = false; pickupCooldown = 30;
+
+                // --- GESTION DU SUPER TIR ---
+                if (superCharge >= 100)
+                {
+                    isSuperShot = true;
+                    superCharge = 0;
+
+                    // 1. Cible : Le panier Droit (Coordonnées approximatives)
+                    double targetX = 1195; // Position X du panier droit (ajusté pour 1280px)
+                    double targetY = 180;  // Hauteur idéale pour un Swish
+
+                    // 2. Temps de vol (plus c'est petit, plus la balle va vite)
+                    double flightTime = 30.0; // Très rapide (Fireball !)
+
+                    // 3. Calcul de la vitesse X (Distance / Temps)
+                    balleVelX = (targetX - balleX) / flightTime;
+
+                    // 4. Calcul de la vitesse Y (Physique inversée pour tomber pile dans le panier)
+                    // Formule : Vy = (Y_cible - Y_depart - 0.5 * Gravité * t^2) / t
+                    double effectiveGravity = GRAVITY * 0.8; // Ta gravité réelle dans HandleBallLogic
+                    balleVelY = (targetY - balleY - 0.5 * effectiveGravity * (flightTime * flightTime)) / flightTime;
+                }
+                // --- TIR NORMAL ---
+                else
+                {
+                    balleVelX = (mousePos.X - balleX) * 0.15;
+                    balleVelY = (mousePos.Y - balleY) * 0.15;
+                    playerHasBall = false;
+                    pickupCooldown = 30;
+                }
+
+                playerHasBall = false;
+                pickupCooldown = 30;
             }
         }
 
