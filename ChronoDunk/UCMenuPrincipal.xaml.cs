@@ -1,42 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Projet_sae;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ChronoDunk
 {
-    /// <summary>
-    /// Logique d'interaction pour UCMenuPrincipal.xaml
-    /// </summary>
     public partial class UCMenuPrincipal : UserControl
     {
-
+        // Variable statique pour conserver le score entre les parties
         public static int meilleurScore = 0;
 
         public UCMenuPrincipal()
         {
             InitializeComponent();
 
-            labMeilleurScore.Content = $"Meilleur score : {meilleurScore}";
+            // Mise à jour du texte
+            labMeilleurScore.Text = $"Meilleur score : {meilleurScore}";
         }
 
         private void buttonJeu_Click(object sender, RoutedEventArgs e)
         {
-            // 1. On passe '1' (ou un autre chiffre) pour définir le mode de jeu.
-            // 2. On change le type de la variable de 'UCJeu' à 'UCChoixAdversaire' (ou var).
-            UCChoixAdversaire interfaceChoix = new UCChoixAdversaire(1);
+            // Navigation vers le choix de personnage (Mode 1 = Jeu Normal)
+            Navigate(new UCChoixAdversaire(1));
+        }
 
-            this.Content = interfaceChoix;
+        private void buttonEntrainement_Click(object sender, RoutedEventArgs e)
+        {
+            // Navigation vers le choix de personnage (Mode 0 = Entrainement)
+            Navigate(new UCChoixAdversaire(0));
+        }
+
+        private void buttonRegles_Click(object sender, RoutedEventArgs e)
+        {
+            Navigate(new UCReglesJeu());
+        }
+
+        private void buttonCopyright_Click(object sender, RoutedEventArgs e)
+        {
+            Navigate(new UCCredits());
         }
 
         private void buttonQuitter_Click(object sender, RoutedEventArgs e)
@@ -44,25 +44,11 @@ namespace ChronoDunk
             Application.Current.Shutdown();
         }
 
-        private void buttonEntrainement_Click(object sender, RoutedEventArgs e)
+        // Méthode utilitaire pour éviter de répéter la logique de navigation
+        private void Navigate(UserControl page)
         {
-            UCModeEntrainement modeEntrainement = new UCModeEntrainement();
-
-            this.Content = modeEntrainement;
-        }
-
-        private void buttonRegles_Click(object sender, RoutedEventArgs e)
-        {
-            UCReglesJeu interfaceRegles = new UCReglesJeu();
-
-            this.Content = interfaceRegles;
-        }
-
-        private void buttonCopyright_Click(object sender, RoutedEventArgs e)
-        {
-            UCCredits interfaceCredits = new UCCredits();
-
-            this.Content = interfaceCredits;
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.Content = page;
         }
     }
 }

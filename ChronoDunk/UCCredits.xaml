@@ -3,93 +3,103 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ChronoDunk"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1280">
 
     <UserControl.Resources>
-        <Style x:Key="MenuButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#FFFF6F00"/>
+        <SolidColorBrush x:Key="ColorPrimary" Color="#FFFF6F00"/>
+        <SolidColorBrush x:Key="ColorTextWhite" Color="White"/>
+
+        <FontFamily x:Key="FontIrish">./fonts/#Irish Grover</FontFamily>
+        <FontFamily x:Key="FontStandard">Century Gothic</FontFamily>
+
+        <Style x:Key="StyleRole" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <Style x:Key="StyleNom" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource FontStandard}"/>
+            <Setter Property="FontSize" Value="32"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="White"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="FontFamily" Value="./fonts/#Irish Grover"/>
-
-            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                </Setter.Value>
-            </Setter>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="20">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="RenderTransform">
-                        <Setter.Value>
-                            <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Cursor" Value="Hand"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,40"/>
         </Style>
     </UserControl.Resources>
 
     <Grid Background="Black">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="29*"/>
-            <RowDefinition Height="421*"/>
-        </Grid.RowDefinitions>
-        <Image x:Name="ImgFondMenuRegles" Source="/images/decor_menu_principal.jpg" Stretch="UniformToFill" Margin="-39,1,-39,-14" Grid.RowSpan="2" OpacityMask="Black"/>
-        <Rectangle Margin="-39,0,-39,-15" Stroke="Black" Fill="#B2000000" RenderTransformOrigin="0.175,0.529" Grid.RowSpan="2"/>
+        <Image Source="/images/decor_menu_principal.jpg" 
+               Stretch="UniformToFill" 
+               Opacity="0.6"/>
 
-        <Button x:Name="buttonRetour" 
-                   Click="ButtonRetour_Click"
-                    HorizontalAlignment="Left" 
-                     VerticalAlignment="Top"
-                 Margin="0,14,0,0"
-                Height="54" Width="166" Background="{x:Null}" BorderBrush="{x:Null}" Grid.RowSpan="2"  Style="{StaticResource MenuButtonStyle}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/images/left-arrow.png" Stretch="Uniform" Height="26" Width="40"/>
-                <Label Content="RETOUR" Foreground="#FFFF6F00" FontFamily="./fonts/#Irish Grover" FontSize="22" Width="108" VerticalAlignment="Center"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" PanningMode="VerticalOnly">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50">
+
+                <TextBlock Text="CHRONO DUNK"
+                           FontFamily="{StaticResource FontIrish}"
+                           FontSize="80"
+                           Foreground="{StaticResource ColorPrimary}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <TextBlock Text="ANNECY"
+                           FontFamily="Times New Roman"
+                           FontSize="40"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,60"
+                           Opacity="0.8"/>
+
+                <TextBlock Text="Creative Director" Style="{StaticResource StyleRole}"/>
+                <TextBlock Text="Amezian Nassim &amp; Blanc Thomas" Style="{StaticResource StyleNom}"/>
+
+                <TextBlock Text="Production Director" Style="{StaticResource StyleRole}"/>
+                <TextBlock Text="Amezian Nassim &amp; Blanc Thomas" Style="{StaticResource StyleNom}"/>
+
+                <TextBlock Text="Art Director" Style="{StaticResource StyleRole}"/>
+                <TextBlock Text="Amezian Nassim &amp; Blanc Thomas" Style="{StaticResource StyleNom}"/>
+
+                <TextBlock Text="Merci d'avoir joué !" 
+                           FontFamily="{StaticResource FontIrish}" 
+                           FontSize="24" 
+                           Foreground="{StaticResource ColorPrimary}" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,30,0,0"/>
 
             </StackPanel>
+        </ScrollViewer>
+
+        <Button x:Name="buttonRetour" Click="ButtonRetour_Click"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="30,30,0,0"
+                Width="50" Height="50"
+                Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="#88000000"/>
+                        <Image Source="/images/left-arrow.png" Stretch="Uniform" Margin="12"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.1" ScaleY="1.1" CenterX="25" CenterY="25"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
         </Button>
-
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,-6,0,-6" Grid.RowSpan="2" Width="800">
-            <Label x:Name="labNomJeuCredits" Content="CHRONO DUNK" Margin="0,20,0,50" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
-            <Label x:Name="labAnnecy" Margin="0,10,0,50" Content="ANNECY" FontFamily="Times New Roman" Foreground="White" FontSize="34" HorizontalAlignment="Center" Height="44" />
-
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,30" HorizontalAlignment="Center" Width="650">
-                <Label x:Name="labCreativeDirector" Margin="0,0,20,0" Content="Creative Director" FontFamily="Times New Roman" Foreground="White" FontSize="28" HorizontalAlignment="Center" Height="38" />
-                <Label x:Name="labNomCreativ" Content="Amezian Nassim &amp; Blanc Thomas" Foreground="White" FontSize="28" Height="46"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,30" HorizontalAlignment="Center" Width="693">
-                <Label x:Name="labProductionDirector" Margin="0,0,10,0" Content="Production Director" FontFamily="Times New Roman" Foreground="White" FontSize="28" HorizontalAlignment="Center" Height="38" />
-                <Label x:Name="labNomProd" Content="Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="28" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,30" HorizontalAlignment="Center" Width="633">
-                <Label x:Name="labArtDirector" Content="Art Director" Margin="0,0,20,0" FontFamily="Times New Roman" Foreground="White" FontSize="28" HorizontalAlignment="Center" Height="38" />
-                <Label x:Name="labNomArt" Content="Amezian Nassim &amp; Blanc Thomas" FontFamily="Century Gothic"  Foreground="White" FontSize="28" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
-        </StackPanel>
-
 
     </Grid>
 </UserControl>
-

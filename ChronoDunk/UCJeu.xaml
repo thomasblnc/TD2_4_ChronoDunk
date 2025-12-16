@@ -10,20 +10,20 @@
              MouseDown="OnMouseDown" MouseUp="OnMouseUp" MouseMove="OnMouseMove">
 
     <UserControl.Resources>
-        <Style x:Key="StyleBoutonPauseAnime" TargetType="Button">
+        <SolidColorBrush x:Key="ColorPrimary" Color="#FFFF6F00"/>
+        <SolidColorBrush x:Key="ColorAlert" Color="#FFFF5200"/>
+        <SolidColorBrush x:Key="ColorTextYellow" Color="Yellow"/>
+        <SolidColorBrush x:Key="ColorOverlay" Color="#CC000000"/>
+
+        <FontFamily x:Key="FontIrish">./fonts/#Irish Grover</FontFamily>
+        <FontFamily x:Key="FontConsolas">Consolas</FontFamily>
+
+        <Style x:Key="StyleBtnPause" TargetType="Button">
             <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                </Setter.Value>
-            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="20">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="White" BorderThickness="1" CornerRadius="20">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -40,52 +40,70 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="StyleBtnMenu" TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource FontIrish}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{StaticResource ColorPrimary}"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Width" Value="240"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Background" Value="{StaticResource ColorAlert}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="Black">
-
-        <Canvas x:Name="canvasJeu" 
-                Background="Transparent" 
-                MouseLeftButtonDown="GameCanvas_Click" 
-                RenderTransformOrigin="0.5,0.5">
-
+        <Canvas x:Name="canvasJeu" Background="Transparent" MouseLeftButtonDown="GameCanvas_Click" RenderOptions.BitmapScalingMode="HighQuality">
             <Canvas.RenderTransform>
                 <TranslateTransform x:Name="CanvasShake" X="0" Y="0"/>
             </Canvas.RenderTransform>
 
-            <Image Source="/images/background.jpg" 
-                   Stretch="Fill" Width="1280" Height="720" 
-                   IsHitTestVisible="False" 
-                   HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Image Source="/images/background.jpg" Stretch="Fill" Width="1280" Height="720" IsHitTestVisible="False"/>
 
-            <StackPanel Canvas.Left="540" Canvas.Top="18" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <StackPanel Canvas.Left="540" Canvas.Top="18" Width="200" HorizontalAlignment="Center">
                 <Border Background="#E5000000" CornerRadius="5" Margin="0,0,0,25" HorizontalAlignment="Center" Padding="15,2">
-                    <TextBlock x:Name="TimerMatch" Text="30" Foreground="#00FF00" FontSize="35" FontWeight="Bold" FontFamily="Consolas"/>
+                    <TextBlock x:Name="TimerMatch" Text="30" Foreground="#00FF00" FontSize="35" FontWeight="Bold" FontFamily="{StaticResource FontConsolas}"/>
                 </Border>
                 <Border Background="#E5000000" CornerRadius="5" HorizontalAlignment="Center" Padding="10,5">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock x:Name="PlayerScoreText" Text="0" Foreground="Yellow" FontSize="30" FontWeight="Bold" Margin="0,0,40,0"/>
+                        <TextBlock x:Name="PlayerScoreText" Text="0" Foreground="{StaticResource ColorTextYellow}" FontSize="30" FontWeight="Bold" Margin="0,0,40,0"/>
                         <TextBlock Text="-" Foreground="White" FontSize="30" FontWeight="Bold"/>
                         <TextBlock x:Name="EnemyScoreText" Text="0" Foreground="Red" FontSize="30" FontWeight="Bold" Margin="40,0,0,0"/>
                     </StackPanel>
                 </Border>
                 <Grid Margin="0,2,0,0">
-                    <TextBlock Text="TOI" Foreground="Yellow" FontSize="10" HorizontalAlignment="Left" Margin="10,10,0,0" FontWeight="Bold"/>
+                    <TextBlock Text="TOI" Foreground="{StaticResource ColorTextYellow}" FontSize="10" HorizontalAlignment="Left" Margin="10,10,0,0" FontWeight="Bold"/>
                     <TextBlock Text="ADV" Foreground="Red" FontSize="10" HorizontalAlignment="Right" Margin="0,10,10,0" FontWeight="Bold"/>
                 </Grid>
             </StackPanel>
 
-            <ProgressBar x:Name="SuperBar" Width="200" Height="20" Canvas.Left="10" Canvas.Bottom="10" Background="Gray" Foreground="OrangeRed" Value="0" Maximum="100" HorizontalAlignment="Center" Canvas.Top="640" VerticalAlignment="Top"/>
-            <TextBlock Text="SUPER FEU" Canvas.Left="15" Canvas.Bottom="12" Foreground="White" FontWeight="Bold" FontSize="10" IsHitTestVisible="False" HorizontalAlignment="Center" Canvas.Top="643" VerticalAlignment="Top"/>
+            <ProgressBar x:Name="SuperBar" Width="200" Height="20" Canvas.Left="10" Canvas.Top="640" Background="Gray" Foreground="OrangeRed" Value="0" Maximum="100"/>
+            <TextBlock Text="SUPER FEU" Canvas.Left="15" Canvas.Top="643" Foreground="White" FontWeight="Bold" FontSize="10" IsHitTestVisible="False"/>
 
             <Polyline x:Name="TrajectoireBalle" Stroke="Gray" StrokeThickness="5" StrokeDashArray="4 2" Opacity="0.8" IsHitTestVisible="False"/>
 
-            <Rectangle x:Name="collisionPanierDroit" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="175" Canvas.Left="1075" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Rectangle x:Name="zoneScorePanierDroit" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="273" Canvas.Left="1005" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Rectangle x:Name="collisionPanierGauche" Fill="Red" Opacity="0" Width="40" Height="100" Canvas.Top="178" Canvas.Left="183" RenderTransformOrigin="0.4,0.49" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Rectangle x:Name="zoneScorePanierGauche" Fill="Lime" Opacity="0" Width="43" Height="6" Canvas.Top="275" Canvas.Left="238" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Rectangle x:Name="collisionPanierDroit" Fill="Red" Opacity="0" Width="34" Height="103" Canvas.Top="175" Canvas.Left="1075"/>
+            <Rectangle x:Name="zoneScorePanierDroit" Fill="Lime" Opacity="0" Width="39" Height="10" Canvas.Top="273" Canvas.Left="1005"/>
+            <Rectangle x:Name="collisionPanierGauche" Fill="Red" Opacity="0" Width="40" Height="100" Canvas.Top="178" Canvas.Left="183"/>
+            <Rectangle x:Name="zoneScorePanierGauche" Fill="Lime" Opacity="0" Width="43" Height="6" Canvas.Top="275" Canvas.Left="238"/>
 
-            <Image x:Name="Player" Source="/images/player.png" Height="300" Width="200" Canvas.Top="364" Canvas.Left="255" IsHitTestVisible="False" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Image x:Name="Player" Source="/images/player.png" Height="300" Width="200" Canvas.Top="364" Canvas.Left="255" IsHitTestVisible="False" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <ScaleTransform ScaleX="1"/>
                 </Image.RenderTransform>
@@ -106,157 +124,94 @@
                 </Image.RenderTransform>
             </Image>
 
-            <Grid>
-                <Button x:Name="buttonPause" 
-                        Click="PauseButton_Click"
-                        Style="{StaticResource StyleBoutonPauseAnime}"
-                        Background="#FFFF6F00"
-                        BorderBrush="White"
-                        BorderThickness="1"
-                        HorizontalAlignment="Left" VerticalAlignment="Top" 
-                        Margin="26,27,0,0" 
-                        Width="40" Height="40">
-                    <Image x:Name="imgPause" Source="/images/buttonPause.png" Stretch="Uniform"/>
-                </Button>
-            </Grid>
-
-            <TextBlock x:Name="CountdownText" Text="" FontSize="100" FontWeight="Bold" Foreground="Yellow" Canvas.Left="350" Canvas.Top="200" Visibility="Collapsed">
+            <TextBlock x:Name="CountdownText" Text="" Width="1280" Canvas.Top="200" Canvas.Left="0" TextAlignment="Center" FontSize="120" FontWeight="Bold" Foreground="{StaticResource ColorTextYellow}" Visibility="Collapsed" IsHitTestVisible="False">
                 <TextBlock.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="10"/>
                 </TextBlock.Effect>
             </TextBlock>
+        </Canvas>
 
-            <Grid x:Name="GameOverScreen" Width="800" Height="600" Background="#CC000000" Visibility="Collapsed" Canvas.Left="240" Canvas.Top="60">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="FIN DU MATCH" Margin="20,0,0,20" Foreground="White" FontSize="60" FontWeight="Bold" HorizontalAlignment="Center" FontFamily="./fonts/#Irish Grover" Height="115"/>
-                    <TextBlock x:Name="FinalScoreText" Margin="0,0,0,20" Text="00 - 00" Foreground="Yellow" FontSize="50" HorizontalAlignment="Center" Height="119" />
-                    <Button x:Name="buttonRejouerGameOverScreen" Content="REJOUER" Width="250" Height="60" FontSize="24" Background="#FFFF5200" Foreground="White" FontFamily="./fonts/#Irish Grover" Click="buttonRejouer_Click"/>
-                    <Button x:Name="buttonMenuGameOverScreen" Content="MENU" Width="250" Height="60" FontSize="24" FontFamily="./fonts/#Irish Grover" Background="#FFFF5200" Foreground="White" Margin="0,30,0,0" Click="buttonQuitter_Click"/>
+        <Button x:Name="buttonPause" Click="PauseButton_Click" Style="{StaticResource StyleBtnPause}" Background="{StaticResource ColorPrimary}" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="26,27,0,0">
+            <Image x:Name="imgPause" Source="/images/buttonPause.png" Stretch="Uniform"/>
+        </Button>
+
+        <Grid x:Name="GameOverScreen" Visibility="Collapsed" Background="{StaticResource ColorOverlay}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="FIN DU MATCH" Margin="0,0,0,10" Foreground="LightGray" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" FontFamily="{StaticResource FontIrish}"/>
+
+                <TextBlock x:Name="ResultText" Text="VICTOIRE !" Margin="0,0,0,10" Foreground="Lime" FontSize="80" FontWeight="Bold" HorizontalAlignment="Center" FontFamily="{StaticResource FontIrish}">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <TextBlock x:Name="FinalScoreText" Margin="0,0,0,40" Text="00 - 00" Foreground="{StaticResource ColorTextYellow}" FontSize="50" HorizontalAlignment="Center"/>
+
+                <Button x:Name="buttonRejouerGameOverScreen" Content="REJOUER" Click="buttonRejouer_Click" Style="{StaticResource StyleBtnMenu}" Background="{StaticResource ColorAlert}"/>
+                <Button x:Name="buttonMenuGameOverScreen" Content="MENU" Click="buttonQuitter_Click" Style="{StaticResource StyleBtnMenu}" Background="{StaticResource ColorAlert}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="canvasMenuPause" Visibility="Collapsed" Background="{StaticResource ColorOverlay}">
+            <Grid Width="726" Height="492" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Menu Pause" Margin="189,10,0,0" FontFamily="{StaticResource FontIrish}" FontSize="64" Foreground="{StaticResource ColorTextYellow}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock x:Name="textScore" Text="0 : 0" Margin="0,118,0,0" FontFamily="{StaticResource FontIrish}" FontSize="32" Foreground="{StaticResource ColorAlert}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Image Source="/images/logo_chronodunk.png" Width="319" Height="174" Margin="475,202,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <RotateTransform Angle="15.6"/>
+                    </Image.RenderTransform>
+                </Image>
+                <Image Source="/images/personnage_chronodunk.png" Width="366" Height="396" Margin="-76,96,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <RotateTransform Angle="7.8"/>
+                    </Image.RenderTransform>
+                </Image>
+
+                <StackPanel Margin="244,191,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Button x:Name="buttonReprendre" Content="REPRENDRE" Click="buttonReprendre_Click" Style="{StaticResource StyleBtnMenu}"/>
+                    <Button x:Name="buttonOptions" Content="OPTIONS" Click="ButtonOptions_Click" Style="{StaticResource StyleBtnMenu}"/>
+                    <Button x:Name="buttonQuitter" Content="QUITTER" Click="buttonQuitter_Click" Style="{StaticResource StyleBtnMenu}"/>
                 </StackPanel>
             </Grid>
+        </Grid>
 
-            <Canvas x:Name="canvasMenuPause" Visibility="Collapsed" Background="#CC000000" Height="492" Canvas.Left="277" Canvas.Top="114" Width="726">
+        <Grid x:Name="MenuOptions" Visibility="Collapsed" Background="#E6000000">
+            <Border Width="600" Height="480" CornerRadius="20" BorderBrush="{StaticResource ColorPrimary}" BorderThickness="3" Background="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Margin="30">
+                    <TextBlock Text="OPTIONS" FontFamily="{StaticResource FontIrish}" FontSize="50" Foreground="{StaticResource ColorPrimary}" HorizontalAlignment="Center" Margin="0,0,0,40"/>
 
-                <TextBlock x:Name="textMenu" Text="Menu Pause" Canvas.Left="189" Canvas.Top="10" FontFamily="./fonts/#Irish Grover" FontSize="64" Foreground="Yellow" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock x:Name="textScore" Text="0 : 0" Canvas.Left="331" Canvas.Top="118" FontFamily="./fonts/#Irish Grover" FontSize="32" Foreground="#FFFF5200" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Grid Margin="0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Difficulté :" Foreground="White" FontSize="22" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="DifficulteIA" SelectionChanged="ComboDifficulty_SelectionChanged" Grid.Column="1" FontFamily="{StaticResource FontIrish}" FontSize="18" Height="40" VerticalContentAlignment="Center">
+                            <ComboBoxItem Content="Facile"/>
+                            <ComboBoxItem Content="Normal"/>
+                            <ComboBoxItem Content="NBA Star"/>
+                        </ComboBox>
+                    </Grid>
 
-                <Image x:Name="imgLogoMenuPause" Source="/images/logo_chronodunk.png" Canvas.Left="475" Canvas.Top="202" Width="319" Height="174" Stretch="Fill" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="15.594"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
+                    <Grid Margin="0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Contrôles :" Foreground="White" FontSize="22" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="ChoixControles" Grid.Column="1" FontFamily="{StaticResource FontIrish}" FontSize="18" Height="40" VerticalContentAlignment="Center" SelectedIndex="0">
+                            <ComboBoxItem Content="Flèches"/>
+                            <ComboBoxItem Content="ZQSD"/>
+                        </ComboBox>
+                    </Grid>
 
-                <Image x:Name="imgPersoMenuPause" Source="/images/personnage_chronodunk.png" Canvas.Left="-76" Canvas.Top="96" Width="366" Height="396" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="7.844"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-
-                <Button x:Name="buttonQuitter" 
-                        Click="buttonQuitter_Click"
-                        Content="QUITTER" 
-                        Canvas.Left="244" Canvas.Top="396" 
-                        Width="238" Height="56" 
-                        Padding="10,8,10,10"
-                        FontSize="20" FontFamily="./fonts/#Irish Grover" 
-                        Foreground="White" Background="#FFFF6F00" BorderBrush="White"
-                        HorizontalAlignment="Center" VerticalAlignment="Top"/>
-
-                <Button x:Name="buttonReprendre" 
-                        Click="buttonReprendre_Click"
-                        Content="REPRENDRE" 
-                        Canvas.Left="244" Canvas.Top="191" 
-                        Width="238" Height="55" 
-                        Padding="15,8,10,10"
-                        FontSize="20" FontFamily="./fonts/#Irish Grover" 
-                        Foreground="White" Background="#FFFF6F00" BorderBrush="White"
-                        HorizontalAlignment="Center" VerticalAlignment="Top"/>
-
-                <Button x:Name="buttonOptions" 
-                        Click="ButtonOptions_Click"
-                        Content="OPTIONS" 
-                        Canvas.Left="244" Canvas.Top="294" 
-                        Width="238" Height="54" 
-                        Padding="15,8,10,10"
-                        FontSize="20" FontFamily="./fonts/#Irish Grover" 
-                        Foreground="White" Background="#FFFF6F00" BorderBrush="White"
-                        HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.535,2"/>
-            </Canvas>
-
-            <Grid x:Name="MenuOptions" Visibility="Collapsed" Background="#E6000000" Canvas.Left="340" Canvas.Top="151" HorizontalAlignment="Center" Height="327" VerticalAlignment="Top" >
-                <Border Width="600" CornerRadius="20" BorderBrush="#FFFF6F00" BorderThickness="3" Background="Black">
-                    <StackPanel Margin="30,0,30,0" VerticalAlignment="Center" Height="480">
-
-                        <TextBlock Text="OPTIONS" FontFamily="./fonts/#Irish Grover" FontSize="50" Foreground="#FFFF6F00" HorizontalAlignment="Center" Margin="0,100,0,30"/>
-
-                        <Grid Margin="0,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="Difficulté :" Foreground="White" FontSize="22" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="DifficulteIA" 
-                                      SelectionChanged="ComboDifficulty_SelectionChanged"
-                                      Grid.Column="1" 
-                                      FontFamily="./fonts/#Irish Grover" 
-                                      FontSize="18" Height="35" 
-                                      VerticalContentAlignment="Center">
-                                <ComboBoxItem Content="Facile"/>
-                                <ComboBoxItem Content="Normal"/>
-                                <ComboBoxItem Content="NBA Star"/>
-                            </ComboBox>
-                        </Grid>
-
-                        <Grid Margin="0,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="Contrôles :" Foreground="White" FontSize="22" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="ChoixControles" 
-                                      Grid.Column="1" 
-                                      FontFamily="./fonts/#Irish Grover" 
-                                      FontSize="18" Height="35" 
-                                      VerticalContentAlignment="Center"
-                                      SelectedIndex="0">
-                                <ComboBoxItem Content="Flèches"/>
-                                <ComboBoxItem Content="ZQSD"/>
-                            </ComboBox>
-                        </Grid>
-
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
+                        <Button Content="VALIDER" Click="ButtonValider_Click" Style="{StaticResource StyleBtnMenu}" Width="180" Background="#00AA00" Margin="10,0"/>
+                        <Button Content="RETOUR" Click="ButtonRetourOptions_Click" Style="{StaticResource StyleBtnMenu}" Width="180" Margin="10,0"/>
                     </StackPanel>
-                </Border>
-
-                <Button Content="VALIDER" Click="ButtonValider_Click"
-                        Width="180" Height="50" Margin="107,250,313,27"
-                        Background="#00AA00" Foreground="White" FontSize="24" FontFamily="./fonts/#Irish Grover">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-
-                <Button Content="RETOUR" Click="ButtonRetourOptions_Click"
-                        Width="200" Height="50"
-                        Background="#FFFF6F00" Foreground="White" FontSize="24" FontFamily="./fonts/#Irish Grover" Margin="318,250,82,27">
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-
-            </Grid>
-
-        </Canvas>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

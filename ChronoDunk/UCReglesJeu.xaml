@@ -5,112 +5,157 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChronoDunk"
              mc:Ignorable="d" 
-             d:DesignHeight="470" d:DesignWidth="711" Background="Black">
+             d:DesignHeight="720" d:DesignWidth="1280">
+
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="ColorPrimary" Color="#FFFF6F00"/>
+        <SolidColorBrush x:Key="ColorTextWhite" Color="White"/>
+
+        <FontFamily x:Key="FontIrish">./fonts/#Irish Grover</FontFamily>
+
+        <Style x:Key="StyleTitreSection" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource FontIrish}"/>
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorPrimary}"/>
+            <Setter Property="Margin" Value="0,20,0,20"/>
+        </Style>
+
+        <Style x:Key="StyleTexteCorps" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="StyleTouche" TargetType="Border">
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+
+        <Style x:Key="StyleTexteTouche" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
 
     <Grid Background="Black">
-        <Image x:Name="ImgFondMenuRegles" Source="/images/decor_menu_principal.jpg" Stretch="UniformToFill" Margin="-39,1,-39,-14" Grid.RowSpan="3" OpacityMask="Black"/>
-        <Rectangle Margin="-39,0,-39,-15" Stroke="Black" Fill="#B2000000" RenderTransformOrigin="0.175,0.529"/>
-        <Border Margin="50" CornerRadius="20" BorderBrush="#FFFF6F00" BorderThickness="3" Background="#AA000000">
+        <Image Source="/images/decor_menu_principal.jpg" 
+               Stretch="UniformToFill" 
+               Opacity="0.6"/>
 
-            <ScrollViewer VerticalScrollBarVisibility="Hidden" 
-                      HorizontalScrollBarVisibility="Disabled">
+        <Border Margin="50" CornerRadius="20" BorderBrush="{StaticResource ColorPrimary}" BorderThickness="3" Background="#CC000000" MaxWidth="1000">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" PanningMode="VerticalOnly">
+                <StackPanel Margin="40">
 
-                <StackPanel Margin="30">
                     <TextBlock Text="RÈGLES DU JEU"
-                           FontFamily="./fonts/#Irish Grover"
-                           FontSize="45"
-                           Foreground="#FFFF6F00"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,30">
+                               FontFamily="{StaticResource FontIrish}"
+                               FontSize="50"
+                               Foreground="{StaticResource ColorPrimary}"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="Black" ShadowDepth="3" BlurRadius="5"/>
+                        </TextBlock.Effect>
                     </TextBlock>
 
+                    <TextBlock Text="1. L'OBJECTIF" Style="{StaticResource StyleTitreSection}"/>
+                    <TextBlock Text="Marquez un maximum de paniers avant la fin du temps imparti ! Enchaînez les tirs pour exploser le meilleur score." Style="{StaticResource StyleTexteCorps}"/>
 
-                    <TextBlock x:Name="textObjectif" Text="1. L'OBJECTIF" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
-                    <TextBlock x:Name="descriptionObjectif" Text="Marquez un maximum de paniers avant la fin du temps imparti ! Enchaînez les tirs pour exploser le meilleur score." Foreground="White" FontSize="18" TextWrapping="Wrap" Margin="0,0,0,20"/>
+                    <TextBlock Text="2. LE SCORE" Style="{StaticResource StyleTitreSection}"/>
+                    <TextBlock Text="• Panier marqué : 2 Points + Bonus de temps" Style="{StaticResource StyleTexteCorps}"/>
+                    <TextBlock Text="• Tirs enchaînés (Combo) : Charge la barre de puissance" Style="{StaticResource StyleTexteCorps}" Margin="0,5,0,0"/>
 
-                    <TextBlock x:Name="textScore" Text="2. LE SCORE" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
-                    <TextBlock x:Name="text2pts" Text="2 Points : Zone intérieure" Foreground="White" FontSize="18" Margin="0,0,0,20"/>
-                    
+                    <TextBlock Text="3. LES COMMANDES" Style="{StaticResource StyleTitreSection}"/>
 
-                    <TextBlock x:Name="textCommandes" Text="3. LES COMMANDES" FontFamily="./fonts/#Irish Grover" FontSize="28" Foreground="#FFFF6F00" Margin="0,0,0,10"/>
-
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,10,0">
-                            <TextBlock Text="←" Foreground="White" Margin="0,0,0,5" FontWeight="Bold" FontSize="24"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Border Style="{StaticResource StyleTouche}">
+                            <TextBlock Text="←" Style="{StaticResource StyleTexteTouche}"/>
                         </Border>
-                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,10,0">
-                            <TextBlock Text="→" Foreground="White" Margin="0,0,0,5" FontWeight="Bold" FontSize="24"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Style="{StaticResource StyleTouche}">
+                            <TextBlock Text="→" Style="{StaticResource StyleTexteTouche}"/>
                         </Border>
-
-                        <TextBlock Text=": Déplacer le joueur d'un côté ou l'autre" Foreground="White" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center"/>
-
+                        <TextBlock Text=": Déplacer le joueur" Style="{StaticResource StyleTexteCorps}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20" VerticalAlignment="Center">
-                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,15,0">
-                            <TextBlock Text="↑" Foreground="White" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Border Style="{StaticResource StyleTouche}">
+                            <TextBlock Text="↑" Style="{StaticResource StyleTexteTouche}"/>
                         </Border>
-                        <TextBlock Text=": Sauter " Foreground="White" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                        <TextBlock Text=": Sauter" Style="{StaticResource StyleTexteCorps}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" VerticalAlignment="Center">
-                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,15,0">
-                            <TextBlock Text="↓" Foreground="White" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Border Style="{StaticResource StyleTouche}">
+                            <TextBlock Text="↓" Style="{StaticResource StyleTexteTouche}"/>
                         </Border>
-                        <TextBlock Text=": Contrer / Récuperer la balle à l'adversaire " Foreground="White" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                        <TextBlock Text=": Contrer / Intercepter" Style="{StaticResource StyleTexteCorps}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,10,0,20">
-                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,10,0">
-                            <TextBlock Text="Q" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Separator Background="{StaticResource ColorPrimary}" Margin="0,10,0,25" Opacity="0.5"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Border Style="{StaticResource StyleTouche}">
+                            <TextBlock Text="Q" Style="{StaticResource StyleTexteTouche}"/>
                         </Border>
-                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,15,0">
-                            <TextBlock Text="D" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Style="{StaticResource StyleTouche}">
+                            <TextBlock Text="D" Style="{StaticResource StyleTexteTouche}"/>
                         </Border>
-                        <TextBlock Text=": Déplacer le joueur d'un côté ou l'autre" Foreground="White" FontSize="18" VerticalAlignment="Center"/>
+                        <TextBlock Text=": Déplacement (Alternatif)" Style="{StaticResource StyleTexteCorps}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20" VerticalAlignment="Center">
-                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,15,0">
-                            <TextBlock Text="Z" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Border Style="{StaticResource StyleTouche}">
+                            <TextBlock Text="Z" Style="{StaticResource StyleTexteTouche}"/>
                         </Border>
-                        <TextBlock Text=": Sauter " Foreground="White" FontSize="18" VerticalAlignment="Center"/>
+                        <TextBlock Text=": Sauter (Alternatif)" Style="{StaticResource StyleTexteCorps}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" VerticalAlignment="Center">
-                        <Border BorderBrush="White" BorderThickness="2" CornerRadius="5" Width="40" Height="40" Margin="0,0,15,0">
-                            <TextBlock Text="S" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Border Style="{StaticResource StyleTouche}">
+                            <TextBlock Text="S" Style="{StaticResource StyleTexteTouche}"/>
                         </Border>
-                        <TextBlock Text=": Contrer / Récuperer la balle à l'adversaire " Foreground="White" FontSize="18" VerticalAlignment="Center"/>
+                        <TextBlock Text=": Contrer (Alternatif)" Style="{StaticResource StyleTexteCorps}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,20,10">
-
-                        <Grid Width="34" Height="50" >
-                            <Border BorderBrush="White" BorderThickness="2" CornerRadius="12" Background="Transparent"/>
-                            <Path Data="M 2,18 L 2,12 C 2,5 5,2 17,2 L 17,18 Z" Fill="#FFFF6F00" Margin="1,1,0,0" />
+                    <TextBlock Text="4. TIR &amp; VISÉE" Style="{StaticResource StyleTitreSection}"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Grid Width="34" Height="50" Margin="0,0,20,0">
+                            <Border BorderBrush="White" BorderThickness="2" CornerRadius="12"/>
+                            <Path Data="M 2,18 L 2,12 C 2,5 5,2 17,2 L 17,18 Z" Fill="{StaticResource ColorPrimary}" Margin="2,2,0,0" />
                             <Line X1="17" Y1="2" X2="17" Y2="18" Stroke="White" StrokeThickness="2"/>
                             <Line X1="2" Y1="18" X2="32" Y2="18" Stroke="White" StrokeThickness="2"/>
                         </Grid>
 
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="  • GLISSER : Choisir la trajectoire" Foreground="White" FontSize="18" Margin="0,0,0,5"/>
-
-                            <TextBlock Text="  • MAINTENIR CLIC : Doser la puissance"  Foreground="White" FontSize="18"/>
+                            <TextBlock Text="• GLISSER : Orienter la visée" Style="{StaticResource StyleTexteCorps}"/>
+                            <TextBlock Text="• RELÂCHER : Tirer" Style="{StaticResource StyleTexteCorps}"/>
                         </StackPanel>
-
                     </StackPanel>
+
                 </StackPanel>
             </ScrollViewer>
         </Border>
 
-        <Button x:Name="buttonRetour" 
-            Click="ButtonRetour_Click"
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Top"
-            Margin="13,10,0,0"
-            Height="48" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
-            <Image Source="/images/left-arrow.png" Stretch="Uniform"/>
+        <Button x:Name="buttonRetour" Click="ButtonRetour_Click"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="30,30,0,0"
+                Width="50" Height="50"
+                Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="#88000000"/>
+                        <Image Source="/images/left-arrow.png" Stretch="Uniform" Margin="10"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
         </Button>
 
     </Grid>

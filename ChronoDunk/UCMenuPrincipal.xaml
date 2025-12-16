@@ -1,111 +1,137 @@
 ﻿<UserControl x:Class="ChronoDunk.UCMenuPrincipal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ChronoDunk"
-             mc:Ignorable="d" 
-             d:DesignHeight="720" Width="1280">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="720" d:DesignWidth="1280">
 
     <UserControl.Resources>
-        <Style x:Key="MenuButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#FFFF6F00"/>
+        <SolidColorBrush x:Key="ColorPrimary" Color="#FFFF6F00"/>
+        <SolidColorBrush x:Key="ColorHighlight" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="ColorTextYellow" Color="Yellow"/>
+
+        <FontFamily x:Key="FontIrish">./fonts/#Irish Grover</FontFamily>
+
+        <Style x:Key="StyleMenuBtn" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource ColorPrimary}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="White"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="FontFamily" Value="./fonts/#Irish Grover"/>
-
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontFamily" Value="{StaticResource FontIrish}"/>
             <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                </Setter.Value>
-            </Setter>
-
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
                                 CornerRadius="20">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="RenderTransform">
                         <Setter.Value>
-                            <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                            <ScaleTransform ScaleX="1.05" ScaleY="1.05"/>
                         </Setter.Value>
                     </Setter>
                     <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="BorderBrush" Value="Yellow"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
-    <Canvas x:Name="canvasMenuPrincipal">
+    <Grid Background="Black">
+        <Image Source="/images/decor_menu_principal.jpg" Stretch="UniformToFill"/>
 
-        <Image x:Name="ImgFondMenuPrincipal" Height="798" Source="/images/decor_menu_principal.jpg" Stretch="Fill" Width="1364" HorizontalAlignment="Left" Canvas.Left="-44" VerticalAlignment="Top"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
-        <Label x:Name="labNomJeu" Content="CHRONO DUNK" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="331" Canvas.Top="70" Foreground="White" FontFamily="./fonts/#Irish Grover" FontSize="90" Background="#00000000" Height="96" Width="618"/>
+            <TextBlock Text="CHRONO DUNK" 
+                       FontFamily="{StaticResource FontIrish}" 
+                       FontSize="90" 
+                       Foreground="White" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,50">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                </TextBlock.Effect>
+            </TextBlock>
 
-        <Label x:Name="labMeilleurScore" Content="Meilleur score : 28" FontFamily="./fonts/#Irish Grover" Canvas.Left="13" Canvas.Top="36" Foreground="#FFEDDC1F" RenderTransformOrigin="0.878,1.213" FontSize="32" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="334">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-11.041000000000002"/>
-                    <TranslateTransform X="3.412" Y="-13.439"/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
+            <Button x:Name="buttonJeu" Click="buttonJeu_Click"
+                    Content="JOUER" 
+                    FontSize="60" 
+                    Width="400" Height="120"
+                    Style="{StaticResource StyleMenuBtn}"
+                    Margin="0,0,0,30"/>
 
-        <Image Height="202" Canvas.Left="957" Source="/images/logo_chronodunk.png" Stretch="Fill" Canvas.Top="293" Width="371" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="buttonEntrainement" Click="buttonEntrainement_Click"
+                    Content="ENTRAINEMENT" 
+                    FontSize="36" 
+                    Width="450" Height="80"
+                    Style="{StaticResource StyleMenuBtn}"/>
+        </StackPanel>
+
+        <TextBlock x:Name="labMeilleurScore" 
+                   Text="Meilleur score : 0" 
+                   FontFamily="{StaticResource FontIrish}" 
+                   FontSize="32" 
+                   Foreground="{StaticResource ColorTextYellow}" 
+                   HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   Margin="30,30,0,0" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <RotateTransform Angle="-10"/>
+            </TextBlock.RenderTransform>
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="3"/>
+            </TextBlock.Effect>
+        </TextBlock>
+
+        <Button x:Name="buttonCopyright" Click="buttonCopyright_Click"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="0,30,30,0" Width="60" Height="60"
+                Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image Source="/images/logo_copyright.png" Stretch="Uniform"/>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.8"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Grid VerticalAlignment="Bottom" Margin="50">
+            <Button x:Name="buttonQuitter" Click="buttonQuitter_Click"
+                    Content="QUITTER" 
+                    FontSize="24" 
+                    Width="200" Height="50"
+                    Style="{StaticResource StyleMenuBtn}"
+                    HorizontalAlignment="Left"/>
+
+            <Button x:Name="buttonRegles" Click="buttonRegles_Click"
+                    Content="RÈGLES" 
+                    FontSize="24" 
+                    Width="200" Height="50"
+                    Style="{StaticResource StyleMenuBtn}"
+                    HorizontalAlignment="Right"/>
+        </Grid>
+
+        <Image Source="/images/logo_chronodunk.png" 
+               Width="300" 
+               HorizontalAlignment="Right" VerticalAlignment="Center" 
+               Margin="0,0,50,150" 
+               RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="14.63"/>
-                    <TranslateTransform/>
-                </TransformGroup>
+                <RotateTransform Angle="15"/>
             </Image.RenderTransform>
         </Image>
 
-        <Button x:Name="buttonJeu" Click="buttonJeu_Click"
-                Style="{StaticResource MenuButtonStyle}" 
-                Content="JOUER" FontSize="60" 
-                Canvas.Left="438" Canvas.Top="300" 
-                Height="120" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-
-        <Button x:Name="buttonEntrainement" Click="buttonEntrainement_Click"
-                Style="{StaticResource MenuButtonStyle}"
-                Content="ENTRAINEMENT" FontSize="36" Canvas.Top="480" 
-                Height="80" Width="450" Canvas.Left="415"/>
-
-        <Button x:Name="buttonRegles" Click="buttonRegles_Click"
-                Style="{StaticResource MenuButtonStyle}"
-                Content="RÈGLES" FontSize="24"
-                Canvas.Left="1033" Canvas.Top="590" 
-                Height="50" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-
-        <Button x:Name="buttonQuitter" Click="buttonQuitter_Click"
-                Style="{StaticResource MenuButtonStyle}"
-                Content="QUITTER" FontSize="24"
-                Canvas.Left="76" Canvas.Top="590" 
-                Height="50" Width="200"/>
-
-
-        <Button x:Name="buttonCopyright" Click="buttonCopyright_Click"
-                Style="{StaticResource MenuButtonStyle}"
-                Height="63" Width="74" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="1159" Canvas.Top="37">
-            <Image x:Name="logoCopyright" Source="/images/logo_copyright.png" Stretch="Fill" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        </Button>
-
-
-    </Canvas>
+    </Grid>
 </UserControl>
